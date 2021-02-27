@@ -1,0 +1,28 @@
+<?php
+
+
+namespace App\Repositories;
+
+use Illuminate\Database\Eloquent\Model;
+
+abstract class CoreRepository
+{
+    protected Model $model;
+
+    /**
+     *
+     * CoreRepository constructor
+     */
+
+    public function __construct()
+    {
+        $this->model = app($this->getModelClass());
+    }
+
+    abstract protected function getModelClass(): string;
+
+    protected function startConditions(): Model
+    {
+        return clone $this->model;
+    }
+}
