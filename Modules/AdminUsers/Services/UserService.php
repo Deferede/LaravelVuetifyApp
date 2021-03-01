@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services;
+namespace Modules\AdminUsers\Services;
 
 use App\Constants\RoleTypes;
 use App\Models\User;

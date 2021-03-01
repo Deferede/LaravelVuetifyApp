@@ -18,7 +18,7 @@ export default {
             commit('SET_PERMISSIONS', [])
 
             try {
-                let resp = await axios.get('/api/settings/permissions')
+                let resp = await axios.get('/api/admin/settings/permissions')
 
                 commit('SET_PERMISSIONS', resp.data.data)
                 this.dispatch('shared/setLoading', false)
@@ -30,7 +30,7 @@ export default {
         },
         async loadPermissionById({commit}, {id, query}) {
             this.dispatch('shared/setLoading', true)
-            let uri = '/api/settings/permissions/' + id
+            let uri = '/api/admin/settings/permissions/' + id
             if (query) {
                 uri += '?' + query
             }

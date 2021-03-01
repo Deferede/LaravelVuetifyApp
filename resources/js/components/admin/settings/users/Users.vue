@@ -164,12 +164,16 @@
         users: 'users/getUsers',
         loading: 'shared/getLoading',
         meta: 'shared/meta',
-        allRoles: 'roles/allRoles'
+        allRoles: 'roles/allRoles',
       }),
     },
     watch: {
       search() {
-        this.refreshTable()
+        if (this.search.length > 3) {
+          this.refreshTable()
+        } else if (this.search.length === 0){
+          this.refreshTable()
+        }
       },
       perPage() {
         this.page = 1

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace Modules\AdminUsers\Http\Controllers\Settings;
 
-use App\Http\Requests\Settings\UserSettingsRequest;
-use App\Http\Resources\UsersResource;
 use App\Http\Controllers\BaseController;
 use App\Models\User;
-use App\Repositories\UserRepository;
-use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Modules\AdminUsers\Http\Requests\Settings\UserSettingsRequest;
+use Modules\AdminUsers\Repositories\UserRepository;
+use Modules\AdminUsers\Services\UserService;
+use Modules\AdminUsers\Transformers\UsersResource;
 
 
 class UserSettingsController extends BaseController

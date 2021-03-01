@@ -2704,7 +2704,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   watch: {
     search: function search() {
-      this.refreshTable();
+      if (this.search.length > 3) {
+        this.refreshTable();
+      } else if (this.search.length === 0) {
+        this.refreshTable();
+      }
     },
     perPage: function perPage() {
       this.page = 1;
@@ -3943,7 +3947,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 commit('SET_PERMISSIONS', []);
                 _context.prev = 3;
                 _context.next = 6;
-                return axios.get('/api/settings/permissions');
+                return axios.get('/api/admin/settings/permissions');
 
               case 6:
                 resp = _context.sent;
@@ -3984,7 +3988,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.dispatch('shared/setLoading', true);
 
-                uri = '/api/settings/permissions/' + id;
+                uri = '/api/admin/settings/permissions/' + id;
 
                 if (query) {
                   uri += '?' + query;
@@ -4081,7 +4085,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.get('/api/settings/roles');
+                return axios.get('/api/admin/settings/roles');
 
               case 5:
                 resp = _context.sent;
@@ -4123,7 +4127,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context2.prev = 2;
                 _context2.next = 5;
-                return axios.patch('/api/settings/roles/' + state.role.id, state.role);
+                return axios.patch('/api/admin/settings/roles/' + state.role.id, state.role);
 
               case 5:
                 resp = _context2.sent;
@@ -4164,7 +4168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this3.dispatch('shared/setLoading', true);
 
-                uri = '/api/settings/roles/' + id;
+                uri = '/api/admin/settings/roles/' + id;
 
                 if (query) {
                   uri += '?' + query;
@@ -4707,7 +4711,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 commit = _ref.commit;
                 query = "?" + new URLSearchParams(query).toString();
-                uri = '/api/settings/users' + query;
+                uri = '/api/admin/settings/users' + query;
 
                 _this.dispatch('shared/setLoading', true);
 
@@ -4756,7 +4760,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 commit = _ref2.commit;
                 id = _ref3.id, query = _ref3.query;
                 query = "?" + new URLSearchParams(query).toString();
-                uri = '/api/settings/users/' + id + query;
+                uri = '/api/admin/settings/users/' + id + query;
 
                 _this2.dispatch('shared/setLoading', true);
 
@@ -4805,7 +4809,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context3.prev = 2;
                 _context3.next = 5;
-                return axios.post('/api/settings/users', state.user);
+                return axios.post('/api/admin/settings/users', state.user);
 
               case 5:
                 resp = _context3.sent;
@@ -4850,7 +4854,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context4.prev = 2;
                 _context4.next = 5;
-                return axios.patch('/api/settings/users/' + state.user.id, state.user);
+                return axios.patch('/api/admin/settings/users/' + state.user.id, state.user);
 
               case 5:
                 resp = _context4.sent;
@@ -4896,7 +4900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context5.prev = 3;
                 _context5.next = 6;
-                return axios["delete"]('/api/settings/users/' + id);
+                return axios["delete"]('/api/admin/settings/users/' + id);
 
               case 6:
                 resp = _context5.sent;
@@ -4941,7 +4945,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context6.prev = 2;
                 _context6.next = 5;
-                return axios.post('/api/settings/users/restore', payload);
+                return axios.post('/api/admin/settings/users/restore', payload);
 
               case 5:
                 resp = _context6.sent;

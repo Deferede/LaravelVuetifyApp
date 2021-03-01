@@ -16,7 +16,7 @@ export default {
         async loadAllRoles({commit}) {
             this.dispatch('shared/setLoading', true)
             try {
-                let resp = await axios.get('/api/settings/roles')
+                let resp = await axios.get('/api/admin/settings/roles')
 
                 commit('SET_ROLES', resp.data.data)
                 this.dispatch('shared/setLoading', false)
@@ -29,7 +29,7 @@ export default {
         async attachPermissions({commit, state}) {
             this.dispatch('shared/setLoading', true)
             try {
-                let resp = await axios.patch('/api/settings/roles/' + state.role.id, state.role)
+                let resp = await axios.patch('/api/admin/settings/roles/' + state.role.id, state.role)
                 this.dispatch('shared/setSuccess', resp.data)
             } catch (err) {
                 this.dispatch('shared/setError', err.response.data)
@@ -38,7 +38,7 @@ export default {
         },
         async loadRoleById({commit}, {id, query}) {
             this.dispatch('shared/setLoading', true)
-            let uri = '/api/settings/roles/' + id
+            let uri = '/api/admin/settings/roles/' + id
             if (query) {
                 uri += '?' + query
             }

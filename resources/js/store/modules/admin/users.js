@@ -15,7 +15,7 @@ export default {
     actions: {
         async loadUsers({commit}, query) {
             query = "?" + new URLSearchParams(query).toString()
-            let uri = '/api/settings/users' + query
+            let uri = '/api/admin/settings/users' + query
 
             this.dispatch('shared/setLoading', true)
 
@@ -38,7 +38,7 @@ export default {
 
             query = "?" + new URLSearchParams(query).toString()
 
-            let uri = '/api/settings/users/' + id + query
+            let uri = '/api/admin/settings/users/' + id + query
             this.dispatch('shared/setLoading', true)
 
             try {
@@ -57,7 +57,7 @@ export default {
         async createUser({commit, state}) {
             this.dispatch('shared/setLoading', true)
             try {
-                let resp = await axios.post('/api/settings/users', state.user)
+                let resp = await axios.post('/api/admin/settings/users', state.user)
 
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
@@ -71,7 +71,7 @@ export default {
             this.dispatch('shared/setLoading', true)
 
             try {
-                let resp = await axios.patch('/api/settings/users/' + state.user.id, state.user)
+                let resp = await axios.patch('/api/admin/settings/users/' + state.user.id, state.user)
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
             } catch (err) {
@@ -84,7 +84,7 @@ export default {
             this.dispatch('shared/setLoading', true)
 
             try {
-                let resp = await axios.delete('/api/settings/users/' + id)
+                let resp = await axios.delete('/api/admin/settings/users/' + id)
 
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
@@ -98,7 +98,7 @@ export default {
             this.dispatch('shared/setLoading', true)
 
             try {
-                let resp = await axios.post('/api/settings/users/restore', payload)
+                let resp = await axios.post('/api/admin/settings/users/restore', payload)
 
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)

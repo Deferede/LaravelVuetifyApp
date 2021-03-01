@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filters;
+namespace Modules\AdminUsers\Filters;
 
-use Illuminate\Database\Query\Builder;
+use App\Filters\QueryFilter;
 
 class UsersFilter extends QueryFilter
 {

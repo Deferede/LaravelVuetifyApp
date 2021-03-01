@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{any?}', \App\Http\Controllers\HomeController::class)->where('any', '[\/\w\.-]*');
+Route::get('/{any}', \App\Http\Controllers\HomeController::class)->where('any', '^(?!api).*$');

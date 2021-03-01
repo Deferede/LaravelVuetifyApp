@@ -43,11 +43,3 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'auth'], function () {
 //});
 //
 
-
-Route::group(['middleware' => ['auth:api'], 'prefix' => 'settings'], function () {
-    Route::apiResource('users', UserSettingsController::class);
-    Route::post('users/restore', [UserSettingsController::class, 'restore']);
-    Route::apiResource('permissions', PermissionsSettingsController::class)->only('index', 'show');
-    Route::apiResource('roles', RolesSettingsController::class)->only('index', 'show', 'update');
-});
-

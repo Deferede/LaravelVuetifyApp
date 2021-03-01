@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace Modules\AdminUsers\Transformers;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -30,7 +30,6 @@ class UsersResource extends JsonResource
         if ($request->withPermissions) {
             $data['permissions'] = PermissionResource::collection($this->getAllPermissions());
         }
-
 
         return $data;
     }

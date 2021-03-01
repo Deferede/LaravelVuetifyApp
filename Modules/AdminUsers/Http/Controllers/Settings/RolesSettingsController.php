@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Settings;
+namespace Modules\AdminUsers\Http\Controllers\Settings;
 
 use App\Constants\RoleTypes;
 use App\Http\Controllers\BaseController;
-use App\Http\Requests\Settings\RoleSettingsRequest;
-use App\Http\Resources\RoleResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\AdminUsers\Http\Requests\Settings\RoleSettingsRequest;
+use Modules\AdminUsers\Transformers\RoleResource;
 use Spatie\Permission\Models\Role;
 
 class RolesSettingsController extends BaseController

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace Modules\AdminUsers\Repositories;
 
-use App\Filters\UsersFilter;
 use App\Models\User as Model;
+use App\Repositories\CoreRepository;
+use Modules\AdminUsers\Filters\UsersFilter;
 
 class UserRepository extends CoreRepository
 {
