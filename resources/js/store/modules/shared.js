@@ -37,10 +37,17 @@ const actions = {
         commit('CLEAR_SNACKBAR')
     },
     setMeta({commit}, payload) {
-        if (payload) {
-            payload['per_page'] = Number(payload['per_page'])
+        switch (payload) {
+            case undefined:
+                commit('SET_META', {})
+                break;
+            default:
+                if (payload) {
+                    payload['per_page'] = Number(payload['per_page'])
+                }
+                commit('SET_META', payload)
+            break;
         }
-        commit('SET_META', payload)
     }
 }
 const getters = {

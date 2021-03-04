@@ -1,5 +1,6 @@
 {
     "Admin": true,
     "AdminBlog": true,
-    "AdminUsers": true
+    "AdminUsers": true,
+    "AdminStatuses": true
 }

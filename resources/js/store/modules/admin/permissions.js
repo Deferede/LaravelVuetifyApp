@@ -19,6 +19,7 @@ export default {
 
             try {
                 let resp = await axios.get('/api/admin/settings/permissions')
+                this.dispatch('shared/setMeta', resp.data.meta)
 
                 commit('SET_PERMISSIONS', resp.data.data)
                 this.dispatch('shared/setLoading', false)

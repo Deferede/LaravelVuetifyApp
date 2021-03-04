@@ -23,6 +23,11 @@ abstract class QueryFilter
         return $this->request->has('limit') ? $this->request->limit : 25;
     }
 
+    public function toPaginate()
+    {
+        return $this->request->has('limit');
+    }
+
     public function apply(Builder $builder)
     {
         $this->builder = $builder;

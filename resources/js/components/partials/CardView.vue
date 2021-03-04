@@ -15,7 +15,18 @@
                 <tbody>
                 <tr v-for='(prop, key) in item' :key='key'>
                   <td>{{ key | capitalize }}</td>
-                  <td v-if="typeof prop === 'object' && prop !== null">
+                  <td v-if="Array.isArray(prop)">
+                    <v-chip
+                      class="ma-2"
+                      color="green"
+                      text-color="white"
+                      small
+                      v-for="(item, k) in prop" :key="k"
+                    >
+                      {{ item.name }}
+                    </v-chip>
+                  </td>
+                  <td v-else-if="typeof prop === 'object' && prop !== null">
                     <span v-if="prop.name">{{ prop.name }} <br></span>
                     <span v-else v-for="(value, i) in prop" :key="i">{{ value }} <br></span>
                   </td>

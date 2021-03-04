@@ -5,7 +5,15 @@
         <v-col xs="12">
           <v-card>
             <v-toolbar>
-              <v-toolbar-title>{{$options.name}}</v-toolbar-title>
+              <v-btn-toggle
+                color="primary"
+                group
+              >
+                <v-btn :to="{name: 'Users'}" depressed exact>Users</v-btn>
+                <v-btn :to="{name: 'Roles settings'}" v-if="hasPermission('crm.roles-list')" depressed exact>Roles</v-btn>
+                <v-btn :to="{name: 'Permissions settings'}" v-if="hasPermission('crm.permissions-list')" depressed exact>Permissions</v-btn>
+              </v-btn-toggle>
+              <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-title>
               <v-text-field
@@ -68,6 +76,7 @@
     },
     computed: {
       ...mapGetters({
+        hasPermission: 'user/hasPermission',
         permissions: 'permissions/allPermissions',
         loading: 'shared/getLoading'
       }),

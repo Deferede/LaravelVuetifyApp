@@ -1,9 +1,7 @@
+import {userGuard} from "../middleware/guards";
 import Statuses from "../../components/admin/settings/statuses/Statuses";
-import Status from "../../components/admin/settings/statuses/Status";
-import NewStatus from "../../components/admin/settings/statuses/NewStatus";
-import auth from "../middleware/auth";
-import admin from "../middleware/admin";
-import EditStatus from "../../components/admin/settings/statuses/EditStatus";
+import Types from "../../components/admin/settings/statuses/Types";
+import Categories from "../../components/admin/settings/statuses/Categories";
 
 export default [
     {
@@ -12,46 +10,33 @@ export default [
         component: Statuses,
         meta: {
             middleware: [
-                auth,
-                admin
+                'crm.statuses-list'
             ]
         },
+        beforeEnter: userGuard
     },
     {
-        path: '/admin/settings/statuses/new',
-        name: 'Create status',
-        component: NewStatus,
+        path: '/admin/settings/statuses/types',
+        name: 'Status-type settings',
+        component: Types,
         meta: {
             middleware: [
-                auth,
-                admin
+                'crm.status_types-list'
             ]
         },
+        beforeEnter: userGuard
     },
     {
-        path: '/admin/settings/statuses/edit/:id',
-        name: 'Edit status',
-        props: true,
-        component: EditStatus,
+        path: '/admin/settings/statuses/categories',
+        name: 'Status-category settings',
+        component: Categories,
         meta: {
             middleware: [
-                auth,
-                admin
+                'crm.status_categories-list'
             ]
         },
+        beforeEnter: userGuard
     },
-    {
-        path: '/admin/settings/statuses/:id',
-        name: 'Status view',
-        props: true,
-        component: Status,
-        meta: {
-            middleware: [
-                auth,
-                admin
-            ]
-        },
-    }
 ]
 
 

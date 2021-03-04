@@ -10,7 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('adminusers')->group(function() {
-    Route::get('/', [\Modules\AdminUsers\Http\Controllers\AdminUsersController::class, 'index']);
-});

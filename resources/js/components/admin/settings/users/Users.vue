@@ -2,21 +2,28 @@
   <div>
     <v-container>
       <v-row>
-        <v-col xs="12">
+        <v-col xs="12" md="12" sm="12">
           <v-card>
             <v-toolbar>
-              <v-spacer></v-spacer>
-
               <v-btn-toggle
                 color="primary"
                 group
               >
-                <v-btn v-if="hasRole('admin')" @click="handleActiveStatusUsers">Deleted users</v-btn>
+                <v-btn :to="{name: 'Users'}" depressed exact>Users</v-btn>
+                <v-btn :to="{name: 'Roles settings'}" v-if="hasPermission('crm.roles-list')" depressed exact>Roles</v-btn>
+                <v-btn :to="{name: 'Permissions settings'}" v-if="hasPermission('crm.permissions-list')" depressed exact>Permissions</v-btn>
               </v-btn-toggle>
-              <v-btn depressed v-if="hasRole('admin')" @click="newItem">
-                <v-icon left>mdi-plus</v-icon>
-                New User
-              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn-toggle
+                color="primary"
+                group
+              >
+                <v-btn v-if="hasRole('admin')" @click="handleActiveStatus">Deleted users</v-btn>
+                <v-btn depressed v-if="hasRole('admin')" @click="newItem">
+                  <v-icon left>mdi-plus</v-icon>
+                  {{ newItemTitle }}
+                </v-btn>
+              </v-btn-toggle>
             </v-toolbar>
             <v-card-title>
               <v-text-field
@@ -24,7 +31,7 @@
             </v-card-title>
             <v-data-table
               :headers="headers"
-              :items="users"
+              :items="items"
               :search="search"
               :items-per-page="perPage"
               :server-items-length="meta.total"
@@ -35,37 +42,37 @@
               <template v-slot:top>
                 <!--CREATE DIALOG-->
                 <v-dialog v-model="dialogNew" max-width="35%">
-                  <card-create :title="user.username" @close="dialogNew = !dialogNew" @confirm="confirmCreate">
-                    <v-text-field label="Name" type="text" v-model="user.username" required></v-text-field>
-                    <v-text-field label="Email" type="text" v-model="user.email" required></v-text-field>
-                    <v-select label="Role" v-model="user.role" :items="allRoles" item-value="id"
+                  <card-create :title="item.username" @close="closeDialogs" @confirm="confirmCreate">
+                    <v-text-field label="Name" type="text" v-model="item.username" required></v-text-field>
+                    <v-text-field label="Email" type="text" v-model="item.email" required></v-text-field>
+                    <v-select label="Role" v-model="item.role" :items="itemRoles" item-value="id"
                               item-text="name"></v-select>
-                    <v-text-field label="Password" type="password" v-model="user.password"></v-text-field>
+                    <v-text-field label="Password" type="password" v-model="item.password"></v-text-field>
                   </card-create>
                 </v-dialog>
                 <!--END-->
                 <!--VIEW DIALOG-->
                 <v-dialog v-model="dialogView" max-width="35%">
-                  <card-view :item="user" :title="user.username"></card-view>
+                  <card-view :item="item" :title="item.username"></card-view>
                 </v-dialog>
                 <!--END-->
                 <!--EDIT DIALOG-->
                 <v-dialog v-model="dialogEdit" max-width="35%">
-                  <card-edit :title="user.username" @close="dialogEdit = !dialogEdit" @confirm="confirmUpdate">
-                    <v-text-field label="Name" type="text" v-model="user.username" required></v-text-field>
-                    <v-text-field label="Email" type="text" v-model="user.email" required></v-text-field>
-                    <v-select label="Role" v-model="user.role" :items="allRoles" item-value="id"
+                  <card-edit :title="item.username" @close="closeDialogs" @confirm="confirmEdit">
+                    <v-text-field label="Name" type="text" v-model="item.username" required></v-text-field>
+                    <v-text-field label="Email" type="text" v-model="item.email" required></v-text-field>
+                    <v-select label="Role" v-model="item.role" :items="itemRoles" item-value="id"
                               item-text="name"></v-select>
-                    <v-text-field label="Password" type="password" v-model="user.password"></v-text-field>
+                    <v-text-field label="Password" type="password" v-model="item.password"></v-text-field>
                   </card-edit>
                 </v-dialog>
                 <!--END-->
                 <!--DELETE DIALOG-->
                 <v-dialog v-model="dialogDelete" max-width="35%">
                   <card-confirm
-                    title="Are you sure you want to delete this item?"
+                    :title="`Are you sure you want to delete ${item.username}?`"
                     text=""
-                    @no="dialogDelete = !dialogDelete"
+                    @no="closeDialogs"
                     @yes="confirmDelete"
                   ></card-confirm>
                 </v-dialog>
@@ -73,9 +80,9 @@
                 <!--RESTORE DIALOG-->
                 <v-dialog v-model="dialogRestore" max-width="35%">
                   <card-confirm
-                    title="Are you sure you want to restore this user?"
+                    :title="`Are you sure you want to restore ${item.username}?`"
                     text=""
-                    @no="dialogRestore = !dialogRestore"
+                    @no="closeDialogs"
                     @yes="confirmRestore"
                   ></card-confirm>
 
@@ -84,11 +91,19 @@
               </template>
               <template v-slot:item.actions="{ item }">
                 <div v-if="!item.is_deleted">
-                  <v-btn icon @click="viewItem(item.id)"><v-icon small>mdi-eye</v-icon></v-btn>
-                  <v-btn icon @click="editItem(item.id)"><v-icon small>mdi-pencil</v-icon></v-btn>
-                  <v-btn icon @click="deleteItem(item.id)"><v-icon small>mdi-delete</v-icon></v-btn>
+                  <v-btn icon @click="viewItem(item.id)">
+                    <v-icon small>mdi-eye</v-icon>
+                  </v-btn>
+                  <v-btn icon @click="editItem(item.id)">
+                    <v-icon small>mdi-pencil</v-icon>
+                  </v-btn>
+                  <v-btn icon @click="deleteItem(item.id)">
+                    <v-icon small>mdi-delete</v-icon>
+                  </v-btn>
                 </div>
-                <v-btn v-if="item.is_deleted" icon @click="restoreItem(item.id)"><v-icon small>mdi-refresh</v-icon></v-btn>
+                <v-btn v-if="item.is_deleted" icon @click="restoreDialog(item.id)">
+                  <v-icon small>mdi-refresh</v-icon>
+                </v-btn>
               </template>
             </v-data-table>
             <v-row>
@@ -114,6 +129,7 @@
   export default {
     data() {
       return {
+        newItemTitle: "New user",
         search: '',
         headers: [
           {
@@ -160,64 +176,80 @@
     computed: {
       ...mapGetters({
         hasRole: 'user/hasRole',
-        user: 'users/getUser',
-        users: 'users/getUsers',
+        hasPermission: 'user/hasPermission',
+        item: 'users/item',
+        items: 'users/items',
         loading: 'shared/getLoading',
         meta: 'shared/meta',
-        allRoles: 'roles/allRoles',
+        itemRoles: 'roles/allRoles',
       }),
     },
     watch: {
       search() {
         if (this.search.length > 3) {
           this.refreshTable()
-        } else if (this.search.length === 0){
+        } else if (this.search.length === 0) {
           this.refreshTable()
         }
       },
       perPage() {
         this.page = 1
         this.refreshTable()
-      }
+      },
     },
     methods: {
-      ...mapActions('users', ['resetUser', 'loadUserById', 'loadUsers', 'createUser', 'deleteUser', 'restoreUser', 'updateUser']),
+      ...mapActions({
+        createItem: 'users/createItem',
+        updateItem: 'users/updateItem',
+        destroyItem: 'users/deleteItem',
+        loadBlankItem: 'users/loadBlankItem',
+        restoreItem: 'users/restoreItem',
+        loadItem: 'users/loadItem',
+        loadItems: 'users/loadItems',
+        loadItemRoles: 'roles/loadAllRoles',
+      }),
       newItem() {
-        this.resetUser().then(() => {
+        this.loadBlankItem().then(() => {
           this.dialogNew = true
         })
       },
       confirmCreate() {
-        this.createUser().then(() => {
+        this.createItem().then(() => {
           this.closeDialogs()
         })
       },
       viewItem(id) {
-        this.loadUserById({id: id}).then(() => {
+        this.loadItem(id).then(() => {
           this.dialogView = true
         })
       },
       editItem(id) {
-        this.loadUserById({id: id}).then(() => {
+        this.loadItem(id).then(() => {
           this.dialogEdit = true
         })
       },
-      deleteItem(id) {
-        this.editedId = id
-        this.dialogDelete = true
-
-      },
-      confirmDelete() {
-        this.deleteUser({id: this.editedId}).then(() => {
+      confirmEdit() {
+        this.updateItem().then(() => {
           this.closeDialogs()
         })
       },
-      restoreItem(id) {
-        this.editedId = id
-        this.dialogRestore = true
+      deleteItem(id) {
+        this.loadItem(id).then(() => {
+          this.dialogDelete = true
+        })
+      },
+      confirmDelete() {
+        this.destroyItem().then(() => {
+          this.closeDialogs()
+        })
+      },
+      restoreDialog(id) {
+        this.loadItem(id).then(() => {
+          this.dialogRestore = true
+        })
       },
       confirmRestore() {
-        this.restoreUser({id: this.editedId}).then(() => {
+        this.restoreItem().then(() => {
           this.closeDialogs()
         })
       },
@@ -225,12 +257,12 @@
         this.page = page
         this.refreshTable()
       },
-      handleActiveStatusUsers() {
+      handleActiveStatus() {
         this.activeStatus = this.activeStatus !== false ? false : 'isNotActive'
         this.refreshTable()
       },
       refreshTable() {
-        this.loadUsers({
+        this.loadItems({
           page: this.page,
           limit: this.perPage,
           search: this.search,
@@ -245,12 +277,6 @@
         this.dialogDelete = false
         this.dialogRestore = false
         this.refreshTable()
-      },
-      confirmUpdate() {
-        this.updateUser({id: this.editedId}).then(() => {
-          this.refreshTable()
-          this.closeDialogs()
-        })
       },
       handleEvent(source, $event) {
         switch (source) {
@@ -267,8 +293,9 @@
 
     },
     mounted() {
-      this.refreshTable()
-      this.$store.dispatch('roles/loadAllRoles')
+      this.loadItemRoles().then(() => {
+        this.refreshTable()
+      })
     },
   }
 </script>

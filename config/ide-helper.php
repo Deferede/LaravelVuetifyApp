@@ -129,6 +129,7 @@ return [
 
     'model_locations' => [
         'app',
+        'Modules'
     ],
 
     /*

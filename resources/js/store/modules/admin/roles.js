@@ -17,6 +17,7 @@ export default {
             this.dispatch('shared/setLoading', true)
             try {
                 let resp = await axios.get('/api/admin/settings/roles')
+                this.dispatch('shared/setMeta', resp.data.meta)
 
                 commit('SET_ROLES', resp.data.data)
                 this.dispatch('shared/setLoading', false)

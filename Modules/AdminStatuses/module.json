@@ -1,0 +1,13 @@
+{
+    "name": "AdminStatuses",
+    "alias": "adminstatuses",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AdminStatuses\\Providers\\AdminStatusesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

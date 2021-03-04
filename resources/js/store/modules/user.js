@@ -129,11 +129,9 @@ const getters = {
     sideMenus() {
         return [
             {title: 'Home', icon: 'mdi-home',roles:['user', 'admin'], url: '/'},
-            {title: 'Admin', icon: 'mdi-view-dashboard', roles: ['admin', 'user'], sub_menu: [
-                    {title: 'Settings', icon: 'mdi-playlist-edit', roles: ['admin', 'user'], sub_sub_menu: [
+            {title: 'Admin', icon: 'mdi-view-dashboard', roles: ['admin'], sub_menu: [
+                    {title: 'Settings', roles: ['admin'], sub_sub_menu: [
                             {title: 'Users', icon: 'mdi-account-multiple', permissions: ['crm.users-list'], url: '/admin/settings/users'},
-                            {title: 'Permissions', icon: 'mdi-square-edit-outline', permissions: ['crm.permissions-list'], url: '/admin/settings/permissions'},
-                            {title: 'Roles', icon: 'mdi-square-edit-outline', permissions: ['crm.roles-list'], url: '/admin/settings/roles'},
                             {title: 'Statuses', icon: 'mdi-square-edit-outline', permissions: ['crm.statuses-list'], url: '/admin/settings/statuses'},
                         ]
                     },

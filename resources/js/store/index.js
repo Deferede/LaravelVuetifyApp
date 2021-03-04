@@ -3,7 +3,9 @@ import Vuex from 'vuex'
 import leads from './modules/leads';
 import user from './modules/user'
 import shared from "./modules/shared";
-import statuses from "./modules/admin/statuses";
+import statuses from "./modules/admin/statuses/statuses";
+import statusTypes from "./modules/admin/statuses/types";
+import statusCategories from "./modules/admin/statuses/categories";
 import users from "./modules/admin/users";
 import roles from "./modules/admin/roles";
 import permissions from "./modules/admin/permissions";
@@ -15,9 +17,11 @@ export default new Vuex.Store({
         leads,
         user,
         shared,
-        statuses,
         users,
         roles,
-        permissions
+        permissions,
+        statuses,
+        statusTypes,
+        statusCategories
     }
 })

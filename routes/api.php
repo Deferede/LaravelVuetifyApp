@@ -33,13 +33,3 @@ Route::group(['middleware' => ['auth:api'], 'prefix' => 'auth'], function () {
     Route::post('me', [MeController::class, 'me']);
     Route::post('hasPermissionTo', [MeController::class, 'hasPermissionTo']);
 });
-
-//
-//
-//Route::group(['middleware' => 'auth:api', 'prefix' => 'status-settings', 'namespace' => 'Statuses'], function () {
-//    Route::apiResource('statuses', 'StatusController');
-//    Route::apiResource('types', 'StatusTypeController');
-//    Route::apiResource('categories', 'StatusCategoryController');
-//});
-//
-

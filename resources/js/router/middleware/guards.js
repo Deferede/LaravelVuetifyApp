@@ -20,7 +20,6 @@ const userGuard = (to, from, next) => {
     store.dispatch('user/loadCurrentUser')
         .then(function (resp) {
             let user = resp
-            console.log(user)
 
             if (to.name === "Home") {
                 return next()

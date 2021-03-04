@@ -1,19 +1,22 @@
 export default {
     namespaced: true,
     state: {
-        user: {},
-        users: [],
+        item: {},
+        items: [],
     },
     mutations: {
-        SET_USER(state, payload) {
-            state.user = payload
+        SET_ITEM(state, id) {
+            state.item = state.items.find((item) => item.id === id)
         },
-        SET_USERS(state, payload) {
-            state.users = payload
+        SET_ITEMS(state, payload) {
+            state.items = payload
         },
+        RESET_ITEM(state) {
+            state.item = {}
+        }
     },
     actions: {
-        async loadUsers({commit}, query) {
+        async loadItems({commit}, query) {
             query = "?" + new URLSearchParams(query).toString()
             let uri = '/api/admin/settings/users' + query
 
@@ -22,11 +25,9 @@ export default {
             try {
                 let resp = await axios.get(uri)
 
-                commit('SET_USERS', resp.data.data)
-                if (resp.data.meta) {
-                    this.dispatch('shared/setMeta', resp.data.meta)
-                }
+                commit('SET_ITEMS', resp.data.data)
 
+                this.dispatch('shared/setMeta', resp.data.meta)
                 this.dispatch('shared/setLoading', false)
 
             } catch (err) {
@@ -34,30 +35,13 @@ export default {
                 this.dispatch('shared/setLoading', false)
             }
         },
-        async loadUserById({commit}, {id, query}) {
-
-            query = "?" + new URLSearchParams(query).toString()
-
-            let uri = '/api/admin/settings/users/' + id + query
-            this.dispatch('shared/setLoading', true)
-
-            try {
-                let resp = await axios.get(uri)
-                commit('SET_USER', resp.data.data)
-                this.dispatch('shared/setLoading', false)
-
-                return resp.data.data
-            } catch (err) {
-                this.dispatch('shared/setError', err.response.data)
-                this.dispatch('shared/setLoading', false)
-
-                throw err
-            }
+        async loadItem({commit}, id) {
+            commit('SET_ITEM', id)
         },
-        async createUser({commit, state}) {
+        async createItem({commit, state}) {
             this.dispatch('shared/setLoading', true)
             try {
-                let resp = await axios.post('/api/admin/settings/users', state.user)
+                let resp = await axios.post('/api/admin/settings/users', state.item)
 
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
@@ -67,11 +51,11 @@ export default {
                 throw err
             }
         },
-        async updateUser({commit, state}) {
+        async updateItem({commit, state}) {
             this.dispatch('shared/setLoading', true)
 
             try {
-                let resp = await axios.patch('/api/admin/settings/users/' + state.user.id, state.user)
+                let resp = await axios.patch('/api/admin/settings/users/' + state.item.id, state.item)
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
             } catch (err) {
@@ -80,25 +64,11 @@ export default {
                 throw err
             }
         },
-        async deleteUser({commit}, {id}) {
+        async deleteItem({commit, state}) {
             this.dispatch('shared/setLoading', true)
 
             try {
-                let resp = await axios.delete('/api/admin/settings/users/' + id)
-
-                this.dispatch('shared/setSuccess', resp.data)
-                this.dispatch('shared/setLoading', false)
-            } catch (err) {
-                this.dispatch('shared/setError', err.response.data)
-                this.dispatch('shared/setLoading', false)
-                throw err
-            }
-        },
-        async restoreUser({commit}, payload) {
-            this.dispatch('shared/setLoading', true)
-
-            try {
-                let resp = await axios.post('/api/admin/settings/users/restore', payload)
+                let resp = await axios.delete('/api/admin/settings/users/' + state.item.id)
 
                 this.dispatch('shared/setSuccess', resp.data)
                 this.dispatch('shared/setLoading', false)
@@ -108,16 +78,30 @@ export default {
                 throw err
             }
         },
-        async resetUser({commit}) {
-            commit('SET_USER', {})
+        async restoreItem({commit, state}) {
+            this.dispatch('shared/setLoading', true)
+
+            try {
+                let resp = await axios.post('/api/admin/settings/users/restore', state.item)
+
+                this.dispatch('shared/setSuccess', resp.data)
+                this.dispatch('shared/setLoading', false)
+            } catch (err) {
+                this.dispatch('shared/setError', err.response.data)
+                this.dispatch('shared/setLoading', false)
+                throw err
+            }
+        },
+        async loadBlankItem({commit}) {
+            commit('RESET_ITEM')
         }
     },
     getters: {
-        getUsers(state) {
-            return state.users
+        items(state) {
+            return state.items
         },
-        getUser (state) {
-            return state.user
+        item (state) {
+            return state.item
         }
     },
 }

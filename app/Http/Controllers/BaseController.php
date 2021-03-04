@@ -10,14 +10,14 @@ class BaseController extends Controller
     /**
      * success response method.
      *
-     * @param $result
-     * @param $message
+     * @param $data
+     * @param string $message
      * @return JsonResource|JsonResponse
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($data, string $message = '')
     {
-        if ($result instanceof JsonResource) {
-            return $result->additional([
+        if ($data instanceof JsonResource) {
+            return $data->additional([
                 'success' => true,
                 'message' => $message,
             ]);
@@ -25,7 +25,7 @@ class BaseController extends Controller
 
         $response = [
             'success' => true,
-            'data'    => $result,
+            'data'    => $data,
             'message' => $message,
         ];
 
@@ -40,7 +40,7 @@ class BaseController extends Controller
      * @param int $code
      * @return JsonResponse
      */
-    public function sendError($error, $errorMessages = [], $code = 404)
+    public function sendError(string $error, array $errorMessages = [], int $code = 404)
     {
         $response = [
             'success' => false,

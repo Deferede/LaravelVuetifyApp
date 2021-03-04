@@ -2342,6 +2342,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Permissions",
@@ -2368,6 +2376,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    hasPermission: 'user/hasPermission',
     permissions: 'permissions/allPermissions',
     loading: 'shared/getLoading'
   })),
@@ -2455,6 +2464,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Roles",
@@ -2481,6 +2498,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    hasPermission: 'user/hasPermission',
     roles: 'roles/allRoles',
     role: 'roles/role',
     loading: 'shared/getLoading',
@@ -2521,6 +2539,908 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.loadPermissions().then(function () {
       _this4.loadAllRoles();
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      newItemTitle: "New status category",
+      search: '',
+      headers: [{
+        text: "Id",
+        align: 'start',
+        filterable: false,
+        value: "id"
+      }, {
+        text: "Name",
+        value: "name"
+      }, {
+        text: "Created at",
+        value: "created_at"
+      }, {
+        text: 'Actions',
+        value: 'actions',
+        sortable: false
+      }],
+      dialogNew: false,
+      dialogView: false,
+      dialogEdit: false,
+      dialogDelete: false,
+      dialogRestore: false,
+      editedId: -1,
+      perPage: 10,
+      page: 1,
+      activeStatus: false,
+      orderBy: 'id',
+      orderDesc: false
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    hasRole: 'user/hasRole',
+    item: 'statusCategories/getItem',
+    items: 'statusCategories/getItems',
+    meta: 'shared/meta'
+  })),
+  watch: {
+    search: function search() {
+      if (this.search.length > 3) {
+        this.refreshTable();
+      } else if (this.search.length === 0) {
+        this.refreshTable();
+      }
+    },
+    perPage: function perPage() {
+      this.page = 1;
+      this.refreshTable();
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    createItem: 'statusCategories/createItem',
+    updateItem: 'statusCategories/updateItem',
+    destroyItem: 'statusCategories/deleteItem',
+    resetItem: 'statusCategories/loadBlankItem',
+    loadItem: 'statusCategories/loadItem',
+    loadItems: 'statusCategories/loadItems'
+  })), {}, {
+    newItem: function newItem() {
+      var _this = this;
+
+      this.resetItem().then(function () {
+        _this.dialogNew = true;
+      });
+    },
+    confirmCreate: function confirmCreate() {
+      var _this2 = this;
+
+      this.createItem().then(function () {
+        _this2.refreshTable();
+
+        _this2.closeDialogs();
+      });
+    },
+    viewItem: function viewItem(id) {
+      var _this3 = this;
+
+      this.loadItem(id).then(function () {
+        _this3.dialogView = true;
+      });
+    },
+    editItem: function editItem(id) {
+      var _this4 = this;
+
+      this.loadItem(id).then(function () {
+        _this4.dialogEdit = true;
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      this.loadItem(id);
+      this.dialogDelete = true;
+    },
+    confirmDelete: function confirmDelete() {
+      var _this5 = this;
+
+      this.destroyItem().then(function () {
+        _this5.closeDialogs();
+      });
+    },
+    confirmUpdate: function confirmUpdate() {
+      var _this6 = this;
+
+      this.updateItem().then(function () {
+        _this6.refreshTable();
+
+        _this6.closeDialogs();
+      });
+    },
+    pageChange: function pageChange(page) {
+      this.page = page;
+      this.refreshTable();
+    },
+    handleActiveStatusUsers: function handleActiveStatusUsers() {
+      this.activeStatus = this.activeStatus !== false ? false : 'isNotActive';
+      this.refreshTable();
+    },
+    refreshTable: function refreshTable() {
+      this.loadItems({
+        page: this.page,
+        limit: this.perPage,
+        search: this.search,
+        activeStatus: this.activeStatus,
+        orderBy: this.orderBy + "|" + this.orderDesc
+      });
+    },
+    closeDialogs: function closeDialogs() {
+      this.dialogNew = false;
+      this.dialogView = false;
+      this.dialogEdit = false;
+      this.dialogDelete = false;
+      this.dialogRestore = false;
+      this.refreshTable();
+    },
+    handleEvent: function handleEvent(source, $event) {
+      switch (source) {
+        case "orderBy":
+          this.orderBy = $event[0];
+          this.refreshTable();
+          break;
+
+        case "orderDesc":
+          this.orderDesc = $event[0];
+          this.refreshTable();
+          break;
+      }
+    }
+  }),
+  mounted: function mounted() {
+    this.refreshTable();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      newItemTitle: "New status",
+      search: '',
+      headers: [{
+        text: "Id",
+        align: 'start',
+        filterable: false,
+        value: "id"
+      }, {
+        text: "Name",
+        value: "name"
+      }, {
+        text: "Type",
+        value: "type.name"
+      }, {
+        text: "Category",
+        value: "category.name"
+      }, {
+        text: "Created at",
+        value: "created_at"
+      }, {
+        text: 'Actions',
+        value: 'actions',
+        sortable: false
+      }],
+      dialogNew: false,
+      dialogView: false,
+      dialogEdit: false,
+      dialogDelete: false,
+      dialogRestore: false,
+      editedId: -1,
+      perPage: 10,
+      page: 1,
+      activeStatus: false,
+      orderBy: 'id',
+      orderDesc: false
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    hasRole: 'user/hasRole',
+    item: 'statuses/getItem',
+    items: 'statuses/getItems',
+    meta: 'shared/meta',
+    itemTypes: 'statusTypes/item',
+    itemCategories: 'statusCategories/getItems'
+  })),
+  watch: {
+    search: function search() {
+      if (this.search.length > 3) {
+        this.refreshTable();
+      } else if (this.search.length === 0) {
+        this.refreshTable();
+      }
+    },
+    perPage: function perPage() {
+      this.page = 1;
+      this.refreshTable();
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    createItem: 'statuses/createItem',
+    updateItem: 'statuses/updateItem',
+    destroyItem: 'statuses/deleteItem',
+    resetItem: 'statuses/loadBlankItem',
+    loadItem: 'statuses/loadItem',
+    loadItems: 'statuses/loadItems',
+    loadItemTypes: 'statusTypes/loadItems',
+    loadItemCategories: 'statusCategories/loadItems'
+  })), {}, {
+    newItem: function newItem() {
+      var _this = this;
+
+      this.resetItem().then(function () {
+        _this.dialogNew = true;
+      });
+    },
+    confirmCreate: function confirmCreate() {
+      var _this2 = this;
+
+      this.createItem().then(function () {
+        _this2.closeDialogs();
+      });
+    },
+    viewItem: function viewItem(id) {
+      var _this3 = this;
+
+      this.loadItem(id).then(function () {
+        _this3.dialogView = true;
+      });
+    },
+    editItem: function editItem(id) {
+      var _this4 = this;
+
+      this.loadItem(id).then(function () {
+        _this4.dialogEdit = true;
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      this.loadItem(id);
+      this.dialogDelete = true;
+    },
+    confirmDelete: function confirmDelete() {
+      var _this5 = this;
+
+      this.destroyItem().then(function () {
+        _this5.closeDialogs();
+      });
+    },
+    confirmUpdate: function confirmUpdate() {
+      var _this6 = this;
+
+      this.updateItem().then(function () {
+        _this6.refreshTable();
+
+        _this6.closeDialogs();
+      });
+    },
+    pageChange: function pageChange(page) {
+      this.page = page;
+      this.refreshTable();
+    },
+    handleActiveStatusUsers: function handleActiveStatusUsers() {
+      this.activeStatus = this.activeStatus !== false ? false : 'isNotActive';
+      this.refreshTable();
+    },
+    refreshTable: function refreshTable() {
+      this.loadItems({
+        page: this.page,
+        limit: this.perPage,
+        search: this.search,
+        activeStatus: this.activeStatus,
+        orderBy: this.orderBy + "|" + this.orderDesc
+      });
+    },
+    closeDialogs: function closeDialogs() {
+      this.dialogNew = false;
+      this.dialogView = false;
+      this.dialogEdit = false;
+      this.dialogDelete = false;
+      this.dialogRestore = false;
+      this.refreshTable();
+    },
+    handleEvent: function handleEvent(source, $event) {
+      switch (source) {
+        case "orderBy":
+          this.orderBy = $event[0];
+          this.refreshTable();
+          break;
+
+        case "orderDesc":
+          this.orderDesc = $event[0];
+          this.refreshTable();
+          break;
+      }
+    }
+  }),
+  mounted: function mounted() {
+    this.refreshTable();
+    this.loadItemTypes();
+    this.loadItemCategories();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      newItemTitle: "New status type",
+      search: '',
+      headers: [{
+        text: "Id",
+        align: 'start',
+        filterable: false,
+        value: "id"
+      }, {
+        text: "Name",
+        value: "name"
+      }, {
+        text: "Created at",
+        value: "created_at"
+      }, {
+        text: 'Actions',
+        value: 'actions',
+        sortable: false
+      }],
+      dialogNew: false,
+      dialogView: false,
+      dialogEdit: false,
+      dialogDelete: false,
+      dialogRestore: false,
+      editedId: -1,
+      perPage: 10,
+      page: 1,
+      activeStatus: false,
+      orderBy: 'id',
+      orderDesc: false
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
+    hasRole: 'user/hasRole',
+    item: 'statusTypes/item',
+    items: 'statusTypes/items',
+    meta: 'shared/meta'
+  })),
+  watch: {
+    search: function search() {
+      if (this.search.length > 3) {
+        this.refreshTable();
+      } else if (this.search.length === 0) {
+        this.refreshTable();
+      }
+    },
+    perPage: function perPage() {
+      this.page = 1;
+      this.refreshTable();
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    createItem: 'statusTypes/createItem',
+    updateItem: 'statusTypes/updateItem',
+    destroyItem: 'statusTypes/deleteItem',
+    resetItem: 'statusTypes/loadBlankItem',
+    loadItem: 'statusTypes/loadItem',
+    loadItems: 'statusTypes/loadItems'
+  })), {}, {
+    newItem: function newItem() {
+      var _this = this;
+
+      this.resetItem().then(function () {
+        _this.dialogNew = true;
+      });
+    },
+    confirmCreate: function confirmCreate() {
+      var _this2 = this;
+
+      this.createItem().then(function () {
+        _this2.refreshTable();
+
+        _this2.closeDialogs();
+      });
+    },
+    viewItem: function viewItem(id) {
+      var _this3 = this;
+
+      this.loadItem(id).then(function () {
+        _this3.dialogView = true;
+      });
+    },
+    editItem: function editItem(id) {
+      var _this4 = this;
+
+      this.loadItem(id).then(function () {
+        _this4.dialogEdit = true;
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      this.loadItem(id);
+      this.dialogDelete = true;
+    },
+    confirmDelete: function confirmDelete() {
+      var _this5 = this;
+
+      this.destroyItem().then(function () {
+        _this5.closeDialogs();
+      });
+    },
+    confirmUpdate: function confirmUpdate() {
+      var _this6 = this;
+
+      this.updateItem().then(function () {
+        _this6.refreshTable();
+
+        _this6.closeDialogs();
+      });
+    },
+    pageChange: function pageChange(page) {
+      this.page = page;
+      this.refreshTable();
+    },
+    handleActiveStatusUsers: function handleActiveStatusUsers() {
+      this.activeStatus = this.activeStatus !== false ? false : 'isNotActive';
+      this.refreshTable();
+    },
+    refreshTable: function refreshTable() {
+      this.loadItems({
+        page: this.page,
+        limit: this.perPage,
+        search: this.search,
+        activeStatus: this.activeStatus,
+        orderBy: this.orderBy + "|" + this.orderDesc
+      });
+    },
+    closeDialogs: function closeDialogs() {
+      this.dialogNew = false;
+      this.dialogView = false;
+      this.dialogEdit = false;
+      this.dialogDelete = false;
+      this.dialogRestore = false;
+      this.refreshTable();
+    },
+    handleEvent: function handleEvent(source, $event) {
+      switch (source) {
+        case "orderBy":
+          this.orderBy = $event[0];
+          this.refreshTable();
+          break;
+
+        case "orderDesc":
+          this.orderDesc = $event[0];
+          this.refreshTable();
+          break;
+      }
+    }
+  }),
+  mounted: function mounted() {
+    this.refreshTable();
   }
 });
 
@@ -2654,10 +3574,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      newItemTitle: "New user",
       search: '',
       headers: [{
         text: "Id",
@@ -2696,11 +3632,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)({
     hasRole: 'user/hasRole',
-    user: 'users/getUser',
-    users: 'users/getUsers',
+    hasPermission: 'user/hasPermission',
+    item: 'users/item',
+    items: 'users/items',
     loading: 'shared/getLoading',
     meta: 'shared/meta',
-    allRoles: 'roles/allRoles'
+    itemRoles: 'roles/allRoles'
   })),
   watch: {
     search: function search() {
@@ -2715,75 +3652,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.refreshTable();
     }
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)('users', ['resetUser', 'loadUserById', 'loadUsers', 'createUser', 'deleteUser', 'restoreUser', 'updateUser'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)({
+    createItem: 'users/createItem',
+    updateItem: 'users/updateItem',
+    destroyItem: 'users/deleteItem',
+    loadBlankItem: 'users/loadBlankItem',
+    restoreItem: 'users/restoreItem',
+    loadItem: 'users/loadItem',
+    loadItems: 'users/loadItems',
+    loadItemRoles: 'roles/loadAllRoles'
+  })), {}, {
     newItem: function newItem() {
       var _this = this;
 
-      this.resetUser().then(function () {
+      this.loadBlankItem().then(function () {
         _this.dialogNew = true;
       });
     },
     confirmCreate: function confirmCreate() {
       var _this2 = this;
 
-      this.createUser().then(function () {
+      this.createItem().then(function () {
         _this2.closeDialogs();
       });
     },
     viewItem: function viewItem(id) {
       var _this3 = this;
 
-      this.loadUserById({
-        id: id
-      }).then(function () {
+      this.loadItem(id).then(function () {
         _this3.dialogView = true;
       });
     },
     editItem: function editItem(id) {
       var _this4 = this;
 
-      this.loadUserById({
-        id: id
-      }).then(function () {
+      this.loadItem(id).then(function () {
         _this4.dialogEdit = true;
       });
     },
-    deleteItem: function deleteItem(id) {
-      this.editedId = id;
-      this.dialogDelete = true;
-    },
-    confirmDelete: function confirmDelete() {
+    confirmEdit: function confirmEdit() {
       var _this5 = this;
 
-      this.deleteUser({
-        id: this.editedId
-      }).then(function () {
+      this.updateItem().then(function () {
         _this5.closeDialogs();
       });
     },
-    restoreItem: function restoreItem(id) {
-      this.editedId = id;
-      this.dialogRestore = true;
-    },
-    confirmRestore: function confirmRestore() {
+    deleteItem: function deleteItem(id) {
       var _this6 = this;
 
-      this.restoreUser({
-        id: this.editedId
-      }).then(function () {
-        _this6.closeDialogs();
+      this.loadItem(id).then(function () {
+        _this6.dialogDelete = true;
+      });
+    },
+    confirmDelete: function confirmDelete() {
+      var _this7 = this;
+
+      this.destroyItem().then(function () {
+        _this7.closeDialogs();
+      });
+    },
+    restoreDialog: function restoreDialog(id) {
+      var _this8 = this;
+
+      this.loadItem(id).then(function () {
+        _this8.dialogRestore = true;
+      });
+    },
+    confirmRestore: function confirmRestore() {
+      var _this9 = this;
+
+      this.restoreItem().then(function () {
+        _this9.closeDialogs();
       });
     },
     pageChange: function pageChange(page) {
       this.page = page;
       this.refreshTable();
     },
-    handleActiveStatusUsers: function handleActiveStatusUsers() {
+    handleActiveStatus: function handleActiveStatus() {
       this.activeStatus = this.activeStatus !== false ? false : 'isNotActive';
       this.refreshTable();
     },
     refreshTable: function refreshTable() {
-      this.loadUsers({
+      this.loadItems({
         page: this.page,
         limit: this.perPage,
         search: this.search,
@@ -2798,17 +3749,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.dialogDelete = false;
       this.dialogRestore = false;
       this.refreshTable();
-    },
-    confirmUpdate: function confirmUpdate() {
-      var _this7 = this;
-
-      this.updateUser({
-        id: this.editedId
-      }).then(function () {
-        _this7.refreshTable();
-
-        _this7.closeDialogs();
-      });
     },
     handleEvent: function handleEvent(source, $event) {
       switch (source) {
@@ -2825,8 +3765,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    this.refreshTable();
-    this.$store.dispatch('roles/loadAllRoles');
+    var _this10 = this;
+
+    this.loadItemRoles().then(function () {
+      _this10.refreshTable();
+    });
   }
 });
 
@@ -3413,6 +4356,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CardView",
   props: {
@@ -3653,6 +4607,53 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/router/admin/statuses.js":
+/*!***********************************************!*\
+  !*** ./resources/js/router/admin/statuses.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _middleware_guards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../middleware/guards */ "./resources/js/router/middleware/guards.js");
+/* harmony import */ var _components_admin_settings_statuses_Statuses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/admin/settings/statuses/Statuses */ "./resources/js/components/admin/settings/statuses/Statuses.vue");
+/* harmony import */ var _components_admin_settings_statuses_Types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/admin/settings/statuses/Types */ "./resources/js/components/admin/settings/statuses/Types.vue");
+/* harmony import */ var _components_admin_settings_statuses_Categories__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/admin/settings/statuses/Categories */ "./resources/js/components/admin/settings/statuses/Categories.vue");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([{
+  path: '/admin/settings/statuses',
+  name: 'Status settings',
+  component: _components_admin_settings_statuses_Statuses__WEBPACK_IMPORTED_MODULE_1__.default,
+  meta: {
+    middleware: ['crm.statuses-list']
+  },
+  beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_0__.userGuard
+}, {
+  path: '/admin/settings/statuses/types',
+  name: 'Status-type settings',
+  component: _components_admin_settings_statuses_Types__WEBPACK_IMPORTED_MODULE_2__.default,
+  meta: {
+    middleware: ['crm.status_types-list']
+  },
+  beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_0__.userGuard
+}, {
+  path: '/admin/settings/statuses/categories',
+  name: 'Status-category settings',
+  component: _components_admin_settings_statuses_Categories__WEBPACK_IMPORTED_MODULE_3__.default,
+  meta: {
+    middleware: ['crm.status_categories-list']
+  },
+  beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_0__.userGuard
+}]);
+
+/***/ }),
+
 /***/ "./resources/js/router/index.js":
 /*!**************************************!*\
   !*** ./resources/js/router/index.js ***!
@@ -3664,8 +4665,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_Home__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Home */ "./resources/js/components/Home.vue");
 /* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/auth/Login */ "./resources/js/components/auth/Login.vue");
 /* harmony import */ var _components_crm_Leads__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/crm/Leads */ "./resources/js/components/crm/Leads.vue");
@@ -3674,9 +4675,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_crm_NewLead__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/crm/NewLead */ "./resources/js/components/crm/NewLead.vue");
 /* harmony import */ var _admin_permissions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./admin/permissions */ "./resources/js/router/admin/permissions.js");
 /* harmony import */ var _admin_roles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./admin/roles */ "./resources/js/router/admin/roles.js");
-/* harmony import */ var _components_admin_settings_users_Users__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/admin/settings/users/Users */ "./resources/js/components/admin/settings/users/Users.vue");
-/* harmony import */ var _middleware_guards__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./middleware/guards */ "./resources/js/router/middleware/guards.js");
-/* harmony import */ var _components_Forbidden__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/Forbidden */ "./resources/js/components/Forbidden.vue");
+/* harmony import */ var _admin_statuses__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./admin/statuses */ "./resources/js/router/admin/statuses.js");
+/* harmony import */ var _components_admin_settings_users_Users__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/admin/settings/users/Users */ "./resources/js/components/admin/settings/users/Users.vue");
+/* harmony import */ var _middleware_guards__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./middleware/guards */ "./resources/js/router/middleware/guards.js");
+/* harmony import */ var _components_Forbidden__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/Forbidden */ "./resources/js/components/Forbidden.vue");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3702,26 +4704,27 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_11__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_12__.default);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_12__.default({
-  routes: [].concat(_toConsumableArray(_admin_permissions__WEBPACK_IMPORTED_MODULE_6__.default), _toConsumableArray(_admin_roles__WEBPACK_IMPORTED_MODULE_7__.default), [{
+
+vue__WEBPACK_IMPORTED_MODULE_12__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_13__.default);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_13__.default({
+  routes: [].concat(_toConsumableArray(_admin_permissions__WEBPACK_IMPORTED_MODULE_6__.default), _toConsumableArray(_admin_roles__WEBPACK_IMPORTED_MODULE_7__.default), _toConsumableArray(_admin_statuses__WEBPACK_IMPORTED_MODULE_8__.default), [{
     path: '/',
     name: 'Home',
     component: _components_Home__WEBPACK_IMPORTED_MODULE_0__.default,
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.userGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.userGuard
   }, {
     path: '/login',
     name: 'Login',
     component: _components_auth_Login__WEBPACK_IMPORTED_MODULE_1__.default,
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.guestGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.guestGuard
   }, {
     path: '/admin/settings/users',
     name: 'Users',
-    component: _components_admin_settings_users_Users__WEBPACK_IMPORTED_MODULE_8__.default,
+    component: _components_admin_settings_users_Users__WEBPACK_IMPORTED_MODULE_9__.default,
     meta: {
       middleware: 'crm.users-list'
     },
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.userGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.userGuard
   }, // {
   //     path: '/registration',
   //     name: 'Registration',
@@ -3739,7 +4742,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_12__.default({
     meta: {
       middleware: []
     },
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.userGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.userGuard
   }, {
     path: '/leads/new',
     name: 'New lead',
@@ -3752,17 +4755,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_12__.default({
     name: 'Lead',
     component: _components_crm_Lead__WEBPACK_IMPORTED_MODULE_3__.default,
     props: true,
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.userGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.userGuard
   }, {
     path: '/me',
     name: 'Me',
     component: _components_user_Me__WEBPACK_IMPORTED_MODULE_4__.default,
     meta: [],
-    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_9__.userGuard
+    beforeEnter: _middleware_guards__WEBPACK_IMPORTED_MODULE_10__.userGuard
   }, {
     path: '/403',
     name: 'Forbidden',
-    component: _components_Forbidden__WEBPACK_IMPORTED_MODULE_10__.default
+    component: _components_Forbidden__WEBPACK_IMPORTED_MODULE_11__.default
   }, {
     path: '*',
     redirect: '/'
@@ -3805,7 +4808,6 @@ var guestGuard = function guestGuard(to, from, next) {
 var userGuard = function userGuard(to, from, next) {
   _store__WEBPACK_IMPORTED_MODULE_0__.default.dispatch('user/loadCurrentUser').then(function (resp) {
     var user = resp;
-    console.log(user);
 
     if (to.name === "Home") {
       return next();
@@ -3864,15 +4866,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_leads__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/leads */ "./resources/js/store/modules/leads.js");
 /* harmony import */ var _modules_user__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/user */ "./resources/js/store/modules/user.js");
 /* harmony import */ var _modules_shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/shared */ "./resources/js/store/modules/shared.js");
-/* harmony import */ var _modules_admin_statuses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/admin/statuses */ "./resources/js/store/modules/admin/statuses.js");
-/* harmony import */ var _modules_admin_users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/admin/users */ "./resources/js/store/modules/admin/users.js");
-/* harmony import */ var _modules_admin_roles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/admin/roles */ "./resources/js/store/modules/admin/roles.js");
-/* harmony import */ var _modules_admin_permissions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/admin/permissions */ "./resources/js/store/modules/admin/permissions.js");
+/* harmony import */ var _modules_admin_statuses_statuses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/admin/statuses/statuses */ "./resources/js/store/modules/admin/statuses/statuses.js");
+/* harmony import */ var _modules_admin_statuses_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/admin/statuses/types */ "./resources/js/store/modules/admin/statuses/types.js");
+/* harmony import */ var _modules_admin_statuses_categories__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/admin/statuses/categories */ "./resources/js/store/modules/admin/statuses/categories.js");
+/* harmony import */ var _modules_admin_users__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/admin/users */ "./resources/js/store/modules/admin/users.js");
+/* harmony import */ var _modules_admin_roles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/admin/roles */ "./resources/js/store/modules/admin/roles.js");
+/* harmony import */ var _modules_admin_permissions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/admin/permissions */ "./resources/js/store/modules/admin/permissions.js");
 
 
 
@@ -3882,16 +4886,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_7__.default.use(vuex__WEBPACK_IMPORTED_MODULE_8__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_8__.default.Store({
+
+
+vue__WEBPACK_IMPORTED_MODULE_9__.default.use(vuex__WEBPACK_IMPORTED_MODULE_10__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_10__.default.Store({
   modules: {
     leads: _modules_leads__WEBPACK_IMPORTED_MODULE_0__.default,
     user: _modules_user__WEBPACK_IMPORTED_MODULE_1__.default,
     shared: _modules_shared__WEBPACK_IMPORTED_MODULE_2__.default,
-    statuses: _modules_admin_statuses__WEBPACK_IMPORTED_MODULE_3__.default,
-    users: _modules_admin_users__WEBPACK_IMPORTED_MODULE_4__.default,
-    roles: _modules_admin_roles__WEBPACK_IMPORTED_MODULE_5__.default,
-    permissions: _modules_admin_permissions__WEBPACK_IMPORTED_MODULE_6__.default
+    users: _modules_admin_users__WEBPACK_IMPORTED_MODULE_6__.default,
+    roles: _modules_admin_roles__WEBPACK_IMPORTED_MODULE_7__.default,
+    permissions: _modules_admin_permissions__WEBPACK_IMPORTED_MODULE_8__.default,
+    statuses: _modules_admin_statuses_statuses__WEBPACK_IMPORTED_MODULE_3__.default,
+    statusTypes: _modules_admin_statuses_types__WEBPACK_IMPORTED_MODULE_4__.default,
+    statusCategories: _modules_admin_statuses_categories__WEBPACK_IMPORTED_MODULE_5__.default
   }
 }));
 
@@ -3951,27 +4959,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 resp = _context.sent;
+
+                _this.dispatch('shared/setMeta', resp.data.meta);
+
                 commit('SET_PERMISSIONS', resp.data.data);
 
                 _this.dispatch('shared/setLoading', false);
 
-                _context.next = 15;
+                _context.next = 16;
                 break;
 
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](3);
 
                 _this.dispatch('shared/setError', _context.t0.response.data);
 
                 _this.dispatch('shared/setLoading', false);
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[3, 11]]);
+        }, _callee, null, [[3, 12]]);
       }))();
     },
     loadPermissionById: function loadPermissionById(_ref2, _ref3) {
@@ -4089,27 +5100,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 resp = _context.sent;
+
+                _this.dispatch('shared/setMeta', resp.data.meta);
+
                 commit('SET_ROLES', resp.data.data);
 
                 _this.dispatch('shared/setLoading', false);
 
-                _context.next = 14;
+                _context.next = 15;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context["catch"](2);
 
                 _this.dispatch('shared/setError', _context.t0.response.data);
 
                 _this.dispatch('shared/setLoading', false);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 10]]);
+        }, _callee, null, [[2, 11]]);
       }))();
     },
     attachPermissions: function attachPermissions(_ref2) {
@@ -4216,10 +5230,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/admin/statuses.js":
-/*!******************************************************!*\
-  !*** ./resources/js/store/modules/admin/statuses.js ***!
-  \******************************************************/
+/***/ "./resources/js/store/modules/admin/statuses/categories.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/store/modules/admin/statuses/categories.js ***!
+  \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4229,439 +5243,829 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../router */ "./resources/js/router/index.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  state: {
-    status: {},
-    statuses: [],
-    status_types: [],
-    status_categories: []
+var state = {
+  item: {},
+  items: []
+};
+var mutations = {
+  SET_ITEM: function SET_ITEM(state, id) {
+    state.item = state.items.find(function (item) {
+      return item.id === id;
+    });
   },
-  mutations: {
-    SET_ALL_STATUSES: function SET_ALL_STATUSES(state, payload) {
-      state.statuses = payload;
-    },
-    SET_STATUS: function SET_STATUS(state, payload) {
-      state.status = payload;
-    },
-    SET_STATUS_TYPES: function SET_STATUS_TYPES(state, payload) {
-      state.status_types = payload;
-    },
-    SET_STATUS_CATEGORIES: function SET_STATUS_CATEGORIES(state, payload) {
-      state.status_categories = payload;
-    }
+  SET_ITEMS: function SET_ITEMS(state, payload) {
+    state.items = payload;
   },
-  actions: {
-    loadAllStatuses: function loadAllStatuses(_ref) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                commit = _ref.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.get('/api/statuses/status');
-
-              case 5:
-                resp = _context.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_ALL_STATUSES', resp.data);
-                _context.next = 14;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
-                commit('shared/SET_ERROR', _context.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[2, 10]]);
-      }))();
-    },
-    loadStatusTypes: function loadStatusTypes(_ref2) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                commit = _ref2.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context2.prev = 2;
-                _context2.next = 5;
-                return axios.get('/api/statuses/type');
-
-              case 5:
-                resp = _context2.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_STATUS_TYPES', resp.data);
-                _context2.next = 14;
-                break;
-
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](2);
-                commit('shared/SET_ERROR', _context2.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[2, 10]]);
-      }))();
-    },
-    loadStatusCategories: function loadStatusCategories(_ref3) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                commit = _ref3.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context3.prev = 2;
-                _context3.next = 5;
-                return axios.get('/api/statuses/category');
-
-              case 5:
-                resp = _context3.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_STATUS_CATEGORIES', resp.data);
-                _context3.next = 14;
-                break;
-
-              case 10:
-                _context3.prev = 10;
-                _context3.t0 = _context3["catch"](2);
-                commit('shared/SET_ERROR', _context3.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[2, 10]]);
-      }))();
-    },
-    loadStatusById: function loadStatusById(_ref4, payload) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                commit = _ref4.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context4.prev = 2;
-                _context4.next = 5;
-                return axios.get('/api/statuses/status/' + payload);
-
-              case 5:
-                resp = _context4.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_STATUS', resp.data);
-                _context4.next = 14;
-                break;
-
-              case 10:
-                _context4.prev = 10;
-                _context4.t0 = _context4["catch"](2);
-                commit('shared/SET_ERROR', _context4.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[2, 10]]);
-      }))();
-    },
-    loadEditingStatus: function loadEditingStatus(_ref5, payload) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                commit = _ref5.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context5.prev = 2;
-                _context5.next = 5;
-                return axios.get('/api/statuses/status/' + payload + '/edit');
-
-              case 5:
-                resp = _context5.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_STATUS', resp.data);
-                _context5.next = 14;
-                break;
-
-              case 10:
-                _context5.prev = 10;
-                _context5.t0 = _context5["catch"](2);
-                commit('shared/SET_ERROR', _context5.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5, null, [[2, 10]]);
-      }))();
-    },
-    loadBlankStatus: function loadBlankStatus(_ref6) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
-          while (1) {
-            switch (_context6.prev = _context6.next) {
-              case 0:
-                commit = _ref6.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context6.prev = 2;
-                _context6.next = 5;
-                return axios.get('/api/statuses/status/create');
-
-              case 5:
-                resp = _context6.sent;
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                commit('SET_STATUS', resp.data);
-                _context6.next = 14;
-                break;
-
-              case 10:
-                _context6.prev = 10;
-                _context6.t0 = _context6["catch"](2);
-                commit('shared/SET_ERROR', _context6.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-
-              case 14:
-              case "end":
-                return _context6.stop();
-            }
-          }
-        }, _callee6, null, [[2, 10]]);
-      }))();
-    },
-    createStatus: function createStatus(_ref7, payload) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                commit = _ref7.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context7.prev = 2;
-                _context7.next = 5;
-                return axios.post('/api/statuses/status', payload);
-
-              case 5:
-                resp = _context7.sent;
-                commit('shared/SET_SUCCESS', resp.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                _context7.next = 15;
-                break;
-
-              case 10:
-                _context7.prev = 10;
-                _context7.t0 = _context7["catch"](2);
-                commit('shared/SET_ERROR', _context7.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                throw _context7.t0;
-
-              case 15:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7, null, [[2, 10]]);
-      }))();
-    },
-    updateStatus: function updateStatus(_ref8, _ref9) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
-        var commit, id, payload, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                commit = _ref8.commit;
-                id = _ref9.id, payload = _ref9.payload;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context8.prev = 3;
-                _context8.next = 6;
-                return axios.put('/api/statuses/status/' + id, payload);
-
-              case 6:
-                resp = _context8.sent;
-                commit('shared/SET_SUCCESS', resp.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                _context8.next = 16;
-                break;
-
-              case 11:
-                _context8.prev = 11;
-                _context8.t0 = _context8["catch"](3);
-                commit('shared/SET_ERROR', _context8.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                throw _context8.t0;
-
-              case 16:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8, null, [[3, 11]]);
-      }))();
-    },
-    deleteStatus: function deleteStatus(_ref10, payload) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
-        var commit, resp;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
-          while (1) {
-            switch (_context9.prev = _context9.next) {
-              case 0:
-                commit = _ref10.commit;
-                commit('shared/SET_LOADING', true, {
-                  root: true
-                });
-                _context9.prev = 2;
-                _context9.next = 5;
-                return axios["delete"]('/api/statuses/status/' + payload);
-
-              case 5:
-                resp = _context9.sent;
-                commit('shared/SET_SUCCESS', resp.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                _context9.next = 15;
-                break;
-
-              case 10:
-                _context9.prev = 10;
-                _context9.t0 = _context9["catch"](2);
-                commit('shared/SET_ERROR', _context9.t0.response.data, {
-                  root: true
-                });
-                commit('shared/SET_LOADING', false, {
-                  root: true
-                });
-                throw _context9.t0;
-
-              case 15:
-              case "end":
-                return _context9.stop();
-            }
-          }
-        }, _callee9, null, [[2, 10]]);
-      }))();
-    }
-  },
-  getters: {
-    getStatuses: function getStatuses(state) {
-      return state.statuses;
-    },
-    getStatusTypes: function getStatusTypes(state) {
-      return state.status_types;
-    },
-    getStatusCategories: function getStatusCategories(state) {
-      return state.status_categories;
-    },
-    getStatus: function getStatus(state) {
-      return state.status;
-    }
+  RESET_ITEM: function RESET_ITEM(state) {
+    state.item = {};
   }
+};
+var actions = {
+  loadItems: function loadItems(_ref) {
+    var _arguments = arguments,
+        _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit, query, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              query = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {};
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              query = "?" + new URLSearchParams(query).toString();
+              _context.prev = 4;
+              _context.next = 7;
+              return axios.get('/api/admin/status/categories' + query);
+
+            case 7:
+              resp = _context.sent;
+
+              _this.dispatch('shared/setMeta', resp.data.meta);
+
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              commit('SET_ITEMS', resp.data.data);
+              _context.next = 17;
+              break;
+
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](4);
+              commit('shared/SET_ERROR', _context.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+
+            case 17:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[4, 13]]);
+    }))();
+  },
+  loadItem: function loadItem(_ref2, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              commit('SET_ITEM', id);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  loadBlankItem: function loadBlankItem(_ref3) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              commit('RESET_ITEM');
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  createItem: function createItem(_ref4) {
+    var _this2 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit, state = _ref4.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context4.prev = 2;
+              _context4.next = 5;
+              return axios.post('/api/admin/status/categories', state.item);
+
+            case 5:
+              resp = _context4.sent;
+
+              if (resp.data.meta) {
+                _this2.dispatch('shared/setMeta', resp.data.meta);
+              } else {
+                _this2.dispatch('shared/setMeta');
+              }
+
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context4.next = 16;
+              break;
+
+            case 11:
+              _context4.prev = 11;
+              _context4.t0 = _context4["catch"](2);
+              commit('shared/SET_ERROR', _context4.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context4.t0;
+
+            case 16:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[2, 11]]);
+    }))();
+  },
+  updateItem: function updateItem(_ref5) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit, state = _ref5.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context5.prev = 2;
+              _context5.next = 5;
+              return axios.put('/api/admin/status/categories/' + state.item.id, state.item);
+
+            case 5:
+              resp = _context5.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context5.next = 15;
+              break;
+
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](2);
+              commit('shared/SET_ERROR', _context5.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context5.t0;
+
+            case 15:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[2, 10]]);
+    }))();
+  },
+  deleteItem: function deleteItem(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit, state = _ref6.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context6.prev = 2;
+              _context6.next = 5;
+              return axios["delete"]('/api/admin/status/categories/' + state.item.id);
+
+            case 5:
+              resp = _context6.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context6.next = 15;
+              break;
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](2);
+              commit('shared/SET_ERROR', _context6.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context6.t0;
+
+            case 15:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[2, 10]]);
+    }))();
+  }
+};
+var getters = {
+  getItem: function getItem(state) {
+    return state.item;
+  },
+  getItems: function getItems(state) {
+    return state.items;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/admin/statuses/statuses.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/store/modules/admin/statuses/statuses.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  item: {},
+  items: []
+};
+var mutations = {
+  SET_ITEM: function SET_ITEM(state, id) {
+    state.item = state.items.find(function (item) {
+      return item.id === id;
+    });
+  },
+  SET_ITEMS: function SET_ITEMS(state, payload) {
+    state.items = payload;
+  },
+  RESET_ITEM: function RESET_ITEM(state) {
+    state.item = {};
+  }
+};
+var actions = {
+  loadItems: function loadItems(_ref, query) {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              query = "?" + new URLSearchParams(query).toString();
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context.prev = 3;
+              _context.next = 6;
+              return axios.get('/api/admin/statuses' + query);
+
+            case 6:
+              resp = _context.sent;
+
+              if (resp.data.meta) {
+                _this.dispatch('shared/setMeta', resp.data.meta);
+              }
+
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              commit('SET_ITEMS', resp.data.data);
+              _context.next = 16;
+              break;
+
+            case 12:
+              _context.prev = 12;
+              _context.t0 = _context["catch"](3);
+              commit('shared/SET_ERROR', _context.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+
+            case 16:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 12]]);
+    }))();
+  },
+  loadItem: function loadItem(_ref2, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit, state;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit, state = _ref2.state;
+              commit('SET_ITEM', id);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  loadBlankItem: function loadBlankItem(_ref3) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              commit('RESET_ITEM');
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  createItem: function createItem(_ref4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit, state = _ref4.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context4.prev = 2;
+              _context4.next = 5;
+              return axios.post('/api/admin/statuses', state.item);
+
+            case 5:
+              resp = _context4.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context4.next = 15;
+              break;
+
+            case 10:
+              _context4.prev = 10;
+              _context4.t0 = _context4["catch"](2);
+              commit('shared/SET_ERROR', _context4.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context4.t0;
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[2, 10]]);
+    }))();
+  },
+  updateItem: function updateItem(_ref5) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit, state = _ref5.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context5.prev = 2;
+              _context5.next = 5;
+              return axios.put('/api/admin/statuses/' + state.item.id, state.item);
+
+            case 5:
+              resp = _context5.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context5.next = 15;
+              break;
+
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](2);
+              commit('shared/SET_ERROR', _context5.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context5.t0;
+
+            case 15:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[2, 10]]);
+    }))();
+  },
+  deleteItem: function deleteItem(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit, state = _ref6.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context6.prev = 2;
+              _context6.next = 5;
+              return axios["delete"]('/api/admin/statuses/' + state.item.id);
+
+            case 5:
+              resp = _context6.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context6.next = 15;
+              break;
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](2);
+              commit('shared/SET_ERROR', _context6.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context6.t0;
+
+            case 15:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[2, 10]]);
+    }))();
+  }
+};
+var getters = {
+  getItem: function getItem(state) {
+    return state.item;
+  },
+  getItems: function getItems(state) {
+    return state.items;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/admin/statuses/types.js":
+/*!************************************************************!*\
+  !*** ./resources/js/store/modules/admin/statuses/types.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var state = {
+  item: {},
+  items: []
+};
+var mutations = {
+  SET_ITEM: function SET_ITEM(state, id) {
+    state.item = state.items.find(function (item) {
+      return item.id === id;
+    });
+  },
+  SET_ITEMS: function SET_ITEMS(state, payload) {
+    state.items = payload;
+  },
+  RESET_ITEM: function RESET_ITEM(state) {
+    state.item = {};
+  }
+};
+var actions = {
+  loadItems: function loadItems(_ref) {
+    var _arguments = arguments,
+        _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var commit, query, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              query = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : {};
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              query = "?" + new URLSearchParams(query).toString();
+              _context.prev = 4;
+              _context.next = 7;
+              return axios.get('/api/admin/status/types' + query);
+
+            case 7:
+              resp = _context.sent;
+
+              _this.dispatch('shared/setMeta', resp.data.meta);
+
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              commit('SET_ITEMS', resp.data.data);
+              _context.next = 17;
+              break;
+
+            case 13:
+              _context.prev = 13;
+              _context.t0 = _context["catch"](4);
+              commit('shared/SET_ERROR', _context.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+
+            case 17:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[4, 13]]);
+    }))();
+  },
+  loadItem: function loadItem(_ref2, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              commit('SET_ITEM', id);
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  loadBlankItem: function loadBlankItem(_ref3) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              commit('RESET_ITEM');
+
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  createItem: function createItem(_ref4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit, state = _ref4.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context4.prev = 2;
+              _context4.next = 5;
+              return axios.post('/api/admin/status/types', state.item);
+
+            case 5:
+              resp = _context4.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context4.next = 15;
+              break;
+
+            case 10:
+              _context4.prev = 10;
+              _context4.t0 = _context4["catch"](2);
+              commit('shared/SET_ERROR', _context4.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context4.t0;
+
+            case 15:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[2, 10]]);
+    }))();
+  },
+  updateItem: function updateItem(_ref5) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit, state = _ref5.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context5.prev = 2;
+              _context5.next = 5;
+              return axios.put('/api/admin/status/types/' + state.item.id, state.item);
+
+            case 5:
+              resp = _context5.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context5.next = 15;
+              break;
+
+            case 10:
+              _context5.prev = 10;
+              _context5.t0 = _context5["catch"](2);
+              commit('shared/SET_ERROR', _context5.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context5.t0;
+
+            case 15:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5, null, [[2, 10]]);
+    }))();
+  },
+  deleteItem: function deleteItem(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+      var commit, state, resp;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit, state = _ref6.state;
+              commit('shared/SET_LOADING', true, {
+                root: true
+              });
+              _context6.prev = 2;
+              _context6.next = 5;
+              return axios["delete"]('/api/admin/status/types/' + state.item.id);
+
+            case 5:
+              resp = _context6.sent;
+              commit('shared/SET_SUCCESS', resp.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              _context6.next = 15;
+              break;
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](2);
+              commit('shared/SET_ERROR', _context6.t0.response.data, {
+                root: true
+              });
+              commit('shared/SET_LOADING', false, {
+                root: true
+              });
+              throw _context6.t0;
+
+            case 15:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[2, 10]]);
+    }))();
+  }
+};
+var getters = {
+  item: function item(state) {
+    return state.item;
+  },
+  items: function items(state) {
+    return state.items;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
 });
 
 /***/ }),
@@ -4688,19 +6092,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: {
-    user: {},
-    users: []
+    item: {},
+    items: []
   },
   mutations: {
-    SET_USER: function SET_USER(state, payload) {
-      state.user = payload;
+    SET_ITEM: function SET_ITEM(state, id) {
+      state.item = state.items.find(function (item) {
+        return item.id === id;
+      });
     },
-    SET_USERS: function SET_USERS(state, payload) {
-      state.users = payload;
+    SET_ITEMS: function SET_ITEMS(state, payload) {
+      state.items = payload;
+    },
+    RESET_ITEM: function RESET_ITEM(state) {
+      state.item = {};
     }
   },
   actions: {
-    loadUsers: function loadUsers(_ref, query) {
+    loadItems: function loadItems(_ref, query) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -4721,11 +6130,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 resp = _context.sent;
-                commit('SET_USERS', resp.data.data);
+                commit('SET_ITEMS', resp.data.data);
 
-                if (resp.data.meta) {
-                  _this.dispatch('shared/setMeta', resp.data.meta);
-                }
+                _this.dispatch('shared/setMeta', resp.data.meta);
 
                 _this.dispatch('shared/setLoading', false);
 
@@ -4748,54 +6155,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[4, 13]]);
       }))();
     },
-    loadUserById: function loadUserById(_ref2, _ref3) {
-      var _this2 = this;
-
+    loadItem: function loadItem(_ref2, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var commit, id, query, uri, resp;
+        var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
-                id = _ref3.id, query = _ref3.query;
-                query = "?" + new URLSearchParams(query).toString();
-                uri = '/api/admin/settings/users/' + id + query;
+                commit('SET_ITEM', id);
 
-                _this2.dispatch('shared/setLoading', true);
-
-                _context2.prev = 5;
-                _context2.next = 8;
-                return axios.get(uri);
-
-              case 8:
-                resp = _context2.sent;
-                commit('SET_USER', resp.data.data);
-
-                _this2.dispatch('shared/setLoading', false);
-
-                return _context2.abrupt("return", resp.data.data);
-
-              case 14:
-                _context2.prev = 14;
-                _context2.t0 = _context2["catch"](5);
-
-                _this2.dispatch('shared/setError', _context2.t0.response.data);
-
-                _this2.dispatch('shared/setLoading', false);
-
-                throw _context2.t0;
-
-              case 19:
+              case 2:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[5, 14]]);
+        }, _callee2);
       }))();
     },
-    createUser: function createUser(_ref4) {
-      var _this3 = this;
+    createItem: function createItem(_ref3) {
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var commit, state, resp;
@@ -4803,20 +6182,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                commit = _ref4.commit, state = _ref4.state;
+                commit = _ref3.commit, state = _ref3.state;
 
-                _this3.dispatch('shared/setLoading', true);
+                _this2.dispatch('shared/setLoading', true);
 
                 _context3.prev = 2;
                 _context3.next = 5;
-                return axios.post('/api/admin/settings/users', state.user);
+                return axios.post('/api/admin/settings/users', state.item);
 
               case 5:
                 resp = _context3.sent;
 
-                _this3.dispatch('shared/setSuccess', resp.data);
+                _this2.dispatch('shared/setSuccess', resp.data);
 
-                _this3.dispatch('shared/setLoading', false);
+                _this2.dispatch('shared/setLoading', false);
 
                 _context3.next = 15;
                 break;
@@ -4825,9 +6204,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 10;
                 _context3.t0 = _context3["catch"](2);
 
-                _this3.dispatch('shared/setError', _context3.t0.response.data);
+                _this2.dispatch('shared/setError', _context3.t0.response.data);
 
-                _this3.dispatch('shared/setLoading', false);
+                _this2.dispatch('shared/setLoading', false);
 
                 throw _context3.t0;
 
@@ -4839,8 +6218,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[2, 10]]);
       }))();
     },
-    updateUser: function updateUser(_ref5) {
-      var _this4 = this;
+    updateItem: function updateItem(_ref4) {
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         var commit, state, resp;
@@ -4848,20 +6227,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                commit = _ref5.commit, state = _ref5.state;
+                commit = _ref4.commit, state = _ref4.state;
 
-                _this4.dispatch('shared/setLoading', true);
+                _this3.dispatch('shared/setLoading', true);
 
                 _context4.prev = 2;
                 _context4.next = 5;
-                return axios.patch('/api/admin/settings/users/' + state.user.id, state.user);
+                return axios.patch('/api/admin/settings/users/' + state.item.id, state.item);
 
               case 5:
                 resp = _context4.sent;
 
-                _this4.dispatch('shared/setSuccess', resp.data);
+                _this3.dispatch('shared/setSuccess', resp.data);
 
-                _this4.dispatch('shared/setLoading', false);
+                _this3.dispatch('shared/setLoading', false);
 
                 _context4.next = 15;
                 break;
@@ -4870,9 +6249,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context4.prev = 10;
                 _context4.t0 = _context4["catch"](2);
 
-                _this4.dispatch('shared/setError', _context4.t0.response.data);
+                _this3.dispatch('shared/setError', _context4.t0.response.data);
 
-                _this4.dispatch('shared/setLoading', false);
+                _this3.dispatch('shared/setLoading', false);
 
                 throw _context4.t0;
 
@@ -4884,75 +6263,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4, null, [[2, 10]]);
       }))();
     },
-    deleteUser: function deleteUser(_ref6, _ref7) {
-      var _this5 = this;
+    deleteItem: function deleteItem(_ref5) {
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        var commit, id, resp;
+        var commit, state, resp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                commit = _ref6.commit;
-                id = _ref7.id;
+                commit = _ref5.commit, state = _ref5.state;
 
-                _this5.dispatch('shared/setLoading', true);
+                _this4.dispatch('shared/setLoading', true);
 
-                _context5.prev = 3;
-                _context5.next = 6;
-                return axios["delete"]('/api/admin/settings/users/' + id);
+                _context5.prev = 2;
+                _context5.next = 5;
+                return axios["delete"]('/api/admin/settings/users/' + state.item.id);
 
-              case 6:
+              case 5:
                 resp = _context5.sent;
 
-                _this5.dispatch('shared/setSuccess', resp.data);
+                _this4.dispatch('shared/setSuccess', resp.data);
 
-                _this5.dispatch('shared/setLoading', false);
+                _this4.dispatch('shared/setLoading', false);
 
-                _context5.next = 16;
+                _context5.next = 15;
                 break;
 
-              case 11:
-                _context5.prev = 11;
-                _context5.t0 = _context5["catch"](3);
+              case 10:
+                _context5.prev = 10;
+                _context5.t0 = _context5["catch"](2);
 
-                _this5.dispatch('shared/setError', _context5.t0.response.data);
+                _this4.dispatch('shared/setError', _context5.t0.response.data);
 
-                _this5.dispatch('shared/setLoading', false);
+                _this4.dispatch('shared/setLoading', false);
 
                 throw _context5.t0;
 
-              case 16:
+              case 15:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[3, 11]]);
+        }, _callee5, null, [[2, 10]]);
       }))();
     },
-    restoreUser: function restoreUser(_ref8, payload) {
-      var _this6 = this;
+    restoreItem: function restoreItem(_ref6) {
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
-        var commit, resp;
+        var commit, state, resp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                commit = _ref8.commit;
+                commit = _ref6.commit, state = _ref6.state;
 
-                _this6.dispatch('shared/setLoading', true);
+                _this5.dispatch('shared/setLoading', true);
 
                 _context6.prev = 2;
                 _context6.next = 5;
-                return axios.post('/api/admin/settings/users/restore', payload);
+                return axios.post('/api/admin/settings/users/restore', state.item);
 
               case 5:
                 resp = _context6.sent;
 
-                _this6.dispatch('shared/setSuccess', resp.data);
+                _this5.dispatch('shared/setSuccess', resp.data);
 
-                _this6.dispatch('shared/setLoading', false);
+                _this5.dispatch('shared/setLoading', false);
 
                 _context6.next = 15;
                 break;
@@ -4961,9 +6339,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context6.prev = 10;
                 _context6.t0 = _context6["catch"](2);
 
-                _this6.dispatch('shared/setError', _context6.t0.response.data);
+                _this5.dispatch('shared/setError', _context6.t0.response.data);
 
-                _this6.dispatch('shared/setLoading', false);
+                _this5.dispatch('shared/setLoading', false);
 
                 throw _context6.t0;
 
@@ -4975,15 +6353,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee6, null, [[2, 10]]);
       }))();
     },
-    resetUser: function resetUser(_ref9) {
+    loadBlankItem: function loadBlankItem(_ref7) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                commit = _ref9.commit;
-                commit('SET_USER', {});
+                commit = _ref7.commit;
+                commit('RESET_ITEM');
 
               case 2:
               case "end":
@@ -4995,11 +6373,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   getters: {
-    getUsers: function getUsers(state) {
-      return state.users;
+    items: function items(state) {
+      return state.items;
     },
-    getUser: function getUser(state) {
-      return state.user;
+    item: function item(state) {
+      return state.item;
     }
   }
 });
@@ -5157,11 +6535,19 @@ var actions = {
   setMeta: function setMeta(_ref5, payload) {
     var commit = _ref5.commit;
 
-    if (payload) {
-      payload['per_page'] = Number(payload['per_page']);
-    }
+    switch (payload) {
+      case undefined:
+        commit('SET_META', {});
+        break;
 
-    commit('SET_META', payload);
+      default:
+        if (payload) {
+          payload['per_page'] = Number(payload['per_page']);
+        }
+
+        commit('SET_META', payload);
+        break;
+    }
   }
 };
 var getters = {
@@ -5535,26 +6921,15 @@ var getters = {
     }, {
       title: 'Admin',
       icon: 'mdi-view-dashboard',
-      roles: ['admin', 'user'],
+      roles: ['admin'],
       sub_menu: [{
         title: 'Settings',
-        icon: 'mdi-playlist-edit',
-        roles: ['admin', 'user'],
+        roles: ['admin'],
         sub_sub_menu: [{
           title: 'Users',
           icon: 'mdi-account-multiple',
           permissions: ['crm.users-list'],
           url: '/admin/settings/users'
-        }, {
-          title: 'Permissions',
-          icon: 'mdi-square-edit-outline',
-          permissions: ['crm.permissions-list'],
-          url: '/admin/settings/permissions'
-        }, {
-          title: 'Roles',
-          icon: 'mdi-square-edit-outline',
-          permissions: ['crm.roles-list'],
-          url: '/admin/settings/roles'
         }, {
           title: 'Statuses',
           icon: 'mdi-square-edit-outline',
@@ -24731,6 +26106,123 @@ component.options.__file = "resources/js/components/admin/settings/roles/Roles.v
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/settings/statuses/Categories.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Categories.vue ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Categories.vue?vue&type=template&id=059bd32c&scoped=true& */ "./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true&");
+/* harmony import */ var _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Categories.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "059bd32c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/settings/statuses/Categories.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Statuses.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Statuses.vue ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Statuses.vue?vue&type=template&id=60b74bee&scoped=true& */ "./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true&");
+/* harmony import */ var _Statuses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Statuses.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Statuses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "60b74bee",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/settings/statuses/Statuses.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Types.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Types.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Types.vue?vue&type=template&id=14cba11b&scoped=true& */ "./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true&");
+/* harmony import */ var _Types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Types.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "14cba11b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/settings/statuses/Types.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/settings/users/Users.vue":
 /*!****************************************************************!*\
   !*** ./resources/js/components/admin/settings/users/Users.vue ***!
@@ -25233,6 +26725,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Categories.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Categories_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Statuses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Types.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Types_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/admin/settings/users/Users.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/admin/settings/users/Users.vue?vue&type=script&lang=js& ***!
@@ -25521,6 +27061,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Roles_vue_vue_type_template_id_fb7332ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Roles_vue_vue_type_template_id_fb7332ac_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Roles.vue?vue&type=template&id=fb7332ac&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/roles/Roles.vue?vue&type=template&id=fb7332ac&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true& ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Categories_vue_vue_type_template_id_059bd32c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Categories.vue?vue&type=template&id=059bd32c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true& ***!
+  \*****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Statuses_vue_vue_type_template_id_60b74bee_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Statuses.vue?vue&type=template&id=60b74bee&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Types_vue_vue_type_template_id_14cba11b_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Types.vue?vue&type=template&id=14cba11b&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true&");
 
 
 /***/ }),
@@ -26404,9 +27995,54 @@ var render = function() {
                       _c(
                         "v-toolbar",
                         [
-                          _c("v-toolbar-title", [
-                            _vm._v(_vm._s(_vm.$options.name))
-                          ])
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Users" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Users")]
+                              ),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.roles-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Roles settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Roles")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.permissions-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Permissions settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Permissions")]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer")
                         ],
                         1
                       ),
@@ -26504,9 +28140,54 @@ var render = function() {
                       _c(
                         "v-toolbar",
                         [
-                          _c("v-toolbar-title", [
-                            _vm._v(_vm._s(_vm.$options.name))
-                          ])
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Users" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Users")]
+                              ),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.roles-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Roles settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Roles")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.permissions-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Permissions settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Permissions")]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer")
                         ],
                         1
                       ),
@@ -26713,10 +28394,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/users/Users.vue?vue&type=template&id=14153400&scoped=true&":
-/*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/users/Users.vue?vue&type=template&id=14153400&scoped=true& ***!
-  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Categories.vue?vue&type=template&id=059bd32c&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26748,6 +28429,49 @@ var render = function() {
                       _c(
                         "v-toolbar",
                         [
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Statuses")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-type settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Types")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-category settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Categories")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
                           _c("v-spacer"),
                           _vm._v(" "),
                           _c(
@@ -26758,33 +28482,25 @@ var render = function() {
                                 ? _c(
                                     "v-btn",
                                     {
-                                      on: { click: _vm.handleActiveStatusUsers }
+                                      attrs: { depressed: "" },
+                                      on: { click: _vm.newItem }
                                     },
-                                    [_vm._v("Deleted users")]
+                                    [
+                                      _c("v-icon", { attrs: { left: "" } }, [
+                                        _vm._v("mdi-plus")
+                                      ]),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(_vm.newItemTitle) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
                                   )
                                 : _vm._e()
                             ],
                             1
-                          ),
-                          _vm._v(" "),
-                          _vm.hasRole("admin")
-                            ? _c(
-                                "v-btn",
-                                {
-                                  attrs: { depressed: "" },
-                                  on: { click: _vm.newItem }
-                                },
-                                [
-                                  _c("v-icon", { attrs: { left: "" } }, [
-                                    _vm._v("mdi-plus")
-                                  ]),
-                                  _vm._v(
-                                    "\n              New User\n            "
-                                  )
-                                ],
-                                1
-                              )
-                            : _vm._e()
+                          )
                         ],
                         1
                       ),
@@ -26814,7 +28530,7 @@ var render = function() {
                       _c("v-data-table", {
                         attrs: {
                           headers: _vm.headers,
-                          items: _vm.users,
+                          items: _vm.items,
                           search: _vm.search,
                           "items-per-page": _vm.perPage,
                           "server-items-length": _vm.meta.total,
@@ -26849,11 +28565,9 @@ var render = function() {
                                     _c(
                                       "card-create",
                                       {
-                                        attrs: { title: _vm.user.username },
+                                        attrs: { title: _vm.item.name },
                                         on: {
-                                          close: function($event) {
-                                            _vm.dialogNew = !_vm.dialogNew
-                                          },
+                                          close: _vm.closeDialogs,
                                           confirm: _vm.confirmCreate
                                         }
                                       },
@@ -26865,64 +28579,11 @@ var render = function() {
                                             required: ""
                                           },
                                           model: {
-                                            value: _vm.user.username,
+                                            value: _vm.item.name,
                                             callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.user,
-                                                "username",
-                                                $$v
-                                              )
+                                              _vm.$set(_vm.item, "name", $$v)
                                             },
-                                            expression: "user.username"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            label: "Email",
-                                            type: "text",
-                                            required: ""
-                                          },
-                                          model: {
-                                            value: _vm.user.email,
-                                            callback: function($$v) {
-                                              _vm.$set(_vm.user, "email", $$v)
-                                            },
-                                            expression: "user.email"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-select", {
-                                          attrs: {
-                                            label: "Role",
-                                            items: _vm.allRoles,
-                                            "item-value": "id",
-                                            "item-text": "name"
-                                          },
-                                          model: {
-                                            value: _vm.user.role,
-                                            callback: function($$v) {
-                                              _vm.$set(_vm.user, "role", $$v)
-                                            },
-                                            expression: "user.role"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            label: "Password",
-                                            type: "password"
-                                          },
-                                          model: {
-                                            value: _vm.user.password,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.user,
-                                                "password",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "user.password"
+                                            expression: "item.name"
                                           }
                                         })
                                       ],
@@ -26947,8 +28608,8 @@ var render = function() {
                                   [
                                     _c("card-view", {
                                       attrs: {
-                                        item: _vm.user,
-                                        title: _vm.user.username
+                                        item: _vm.item,
+                                        title: _vm.item.name
                                       }
                                     })
                                   ],
@@ -26971,11 +28632,9 @@ var render = function() {
                                     _c(
                                       "card-edit",
                                       {
-                                        attrs: { title: _vm.user.username },
+                                        attrs: { title: _vm.item.name },
                                         on: {
-                                          close: function($event) {
-                                            _vm.dialogEdit = !_vm.dialogEdit
-                                          },
+                                          close: _vm.closeDialogs,
                                           confirm: _vm.confirmUpdate
                                         }
                                       },
@@ -26987,64 +28646,11 @@ var render = function() {
                                             required: ""
                                           },
                                           model: {
-                                            value: _vm.user.username,
+                                            value: _vm.item.name,
                                             callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.user,
-                                                "username",
-                                                $$v
-                                              )
+                                              _vm.$set(_vm.item, "name", $$v)
                                             },
-                                            expression: "user.username"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            label: "Email",
-                                            type: "text",
-                                            required: ""
-                                          },
-                                          model: {
-                                            value: _vm.user.email,
-                                            callback: function($$v) {
-                                              _vm.$set(_vm.user, "email", $$v)
-                                            },
-                                            expression: "user.email"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-select", {
-                                          attrs: {
-                                            label: "Role",
-                                            items: _vm.allRoles,
-                                            "item-value": "id",
-                                            "item-text": "name"
-                                          },
-                                          model: {
-                                            value: _vm.user.role,
-                                            callback: function($$v) {
-                                              _vm.$set(_vm.user, "role", $$v)
-                                            },
-                                            expression: "user.role"
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            label: "Password",
-                                            type: "password"
-                                          },
-                                          model: {
-                                            value: _vm.user.password,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.user,
-                                                "password",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "user.password"
+                                            expression: "item.name"
                                           }
                                         })
                                       ],
@@ -27070,44 +28676,14 @@ var render = function() {
                                     _c("card-confirm", {
                                       attrs: {
                                         title:
-                                          "Are you sure you want to delete this item?",
+                                          "Are you sure you want to delete this " +
+                                          _vm.item.name +
+                                          "?",
                                         text: ""
                                       },
                                       on: {
-                                        no: function($event) {
-                                          _vm.dialogDelete = !_vm.dialogDelete
-                                        },
+                                        no: _vm.closeDialogs,
                                         yes: _vm.confirmDelete
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-dialog",
-                                  {
-                                    attrs: { "max-width": "35%" },
-                                    model: {
-                                      value: _vm.dialogRestore,
-                                      callback: function($$v) {
-                                        _vm.dialogRestore = $$v
-                                      },
-                                      expression: "dialogRestore"
-                                    }
-                                  },
-                                  [
-                                    _c("card-confirm", {
-                                      attrs: {
-                                        title:
-                                          "Are you sure you want to restore this user?",
-                                        text: ""
-                                      },
-                                      on: {
-                                        no: function($event) {
-                                          _vm.dialogRestore = !_vm.dialogRestore
-                                        },
-                                        yes: _vm.confirmRestore
                                       }
                                     })
                                   ],
@@ -27198,6 +28774,1660 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.restoreItem(item.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("v-icon", { attrs: { small: "" } }, [
+                                          _vm._v("mdi-refresh")
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "3", sm: "3" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: [5, 10, 20, 25, 50, 100],
+                                  label: "Row per Page"
+                                },
+                                model: {
+                                  value: _vm.perPage,
+                                  callback: function($$v) {
+                                    _vm.perPage = $$v
+                                  },
+                                  expression: "perPage"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center pt-2" },
+                        [
+                          _c("v-pagination", {
+                            attrs: { length: _vm.meta.last_page },
+                            on: { input: _vm.pageChange },
+                            model: {
+                              value: _vm.meta.current_page,
+                              callback: function($$v) {
+                                _vm.$set(_vm.meta, "current_page", $$v)
+                              },
+                              expression: "meta.current_page"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Statuses.vue?vue&type=template&id=60b74bee&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        [
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { xs: "12" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-toolbar",
+                        [
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Statuses")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-type settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Types")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-category settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Categories")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _vm.hasRole("admin")
+                            ? _c(
+                                "v-btn",
+                                {
+                                  attrs: { depressed: "" },
+                                  on: { click: _vm.newItem }
+                                },
+                                [
+                                  _c("v-icon", { attrs: { left: "" } }, [
+                                    _vm._v("mdi-plus")
+                                  ]),
+                                  _vm._v(
+                                    "\n              " +
+                                      _vm._s(_vm.newItemTitle) +
+                                      "\n            "
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-title",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "mdi-magnify",
+                              label: "Search",
+                              "single-line": "",
+                              "hide-details": ""
+                            },
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-data-table", {
+                        attrs: {
+                          headers: _vm.headers,
+                          items: _vm.items,
+                          search: _vm.search,
+                          "items-per-page": _vm.perPage,
+                          "server-items-length": _vm.meta.total,
+                          "hide-default-footer": ""
+                        },
+                        on: {
+                          "update:sort-by": function($event) {
+                            return _vm.handleEvent("orderBy", $event)
+                          },
+                          "update:sort-desc": function($event) {
+                            return _vm.handleEvent("orderDesc", $event)
+                          }
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "top",
+                            fn: function() {
+                              return [
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogNew,
+                                      callback: function($$v) {
+                                        _vm.dialogNew = $$v
+                                      },
+                                      expression: "dialogNew"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-create",
+                                      {
+                                        attrs: { title: _vm.item.name },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmCreate
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.name,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "name", $$v)
+                                            },
+                                            expression: "item.name"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Priority",
+                                            type: "number",
+                                            min: "0",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.priority,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "priority",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.priority"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Type",
+                                            items: _vm.itemTypes,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.type,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "type", $$v)
+                                            },
+                                            expression: "item.type"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Category",
+                                            items: _vm.itemCategories,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.category,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "category",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.category"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogView,
+                                      callback: function($$v) {
+                                        _vm.dialogView = $$v
+                                      },
+                                      expression: "dialogView"
+                                    }
+                                  },
+                                  [
+                                    _c("card-view", {
+                                      attrs: {
+                                        item: _vm.item,
+                                        title: _vm.item.name
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogEdit,
+                                      callback: function($$v) {
+                                        _vm.dialogEdit = $$v
+                                      },
+                                      expression: "dialogEdit"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-edit",
+                                      {
+                                        attrs: { title: _vm.item.name },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmUpdate
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.name,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "name", $$v)
+                                            },
+                                            expression: "item.name"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Priority",
+                                            type: "number",
+                                            "aria-valuemin": "0",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.priority,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "priority",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.priority"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Role",
+                                            items: _vm.itemTypes,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.type,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "type", $$v)
+                                            },
+                                            expression: "item.type"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Role",
+                                            items: _vm.itemCategories,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.category,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "category",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.category"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogDelete,
+                                      callback: function($$v) {
+                                        _vm.dialogDelete = $$v
+                                      },
+                                      expression: "dialogDelete"
+                                    }
+                                  },
+                                  [
+                                    _c("card-confirm", {
+                                      attrs: {
+                                        title:
+                                          "Are you sure you want to delete this " +
+                                          _vm.item.name +
+                                          "?",
+                                        text: ""
+                                      },
+                                      on: {
+                                        no: _vm.closeDialogs,
+                                        yes: _vm.confirmDelete
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "item.actions",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return [
+                                !item.is_deleted
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.viewItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-eye")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.editItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-pencil")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-delete")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                item.is_deleted
+                                  ? _c(
+                                      "v-btn",
+                                      {
+                                        attrs: { icon: "" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.restoreItem(item.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("v-icon", { attrs: { small: "" } }, [
+                                          _vm._v("mdi-refresh")
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "3", sm: "3" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: [5, 10, 20, 25, 50, 100],
+                                  label: "Row per Page"
+                                },
+                                model: {
+                                  value: _vm.perPage,
+                                  callback: function($$v) {
+                                    _vm.perPage = $$v
+                                  },
+                                  expression: "perPage"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center pt-2" },
+                        [
+                          _c("v-pagination", {
+                            attrs: { length: _vm.meta.last_page },
+                            on: { input: _vm.pageChange },
+                            model: {
+                              value: _vm.meta.current_page,
+                              callback: function($$v) {
+                                _vm.$set(_vm.meta, "current_page", $$v)
+                              },
+                              expression: "meta.current_page"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/statuses/Types.vue?vue&type=template&id=14cba11b&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        [
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { xs: "12" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-toolbar",
+                        [
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Statuses")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-type settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Types")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Status-category settings" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Categories")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _vm.hasRole("admin")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { depressed: "" },
+                                      on: { click: _vm.newItem }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { left: "" } }, [
+                                        _vm._v("mdi-plus")
+                                      ]),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(_vm.newItemTitle) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-title",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "mdi-magnify",
+                              label: "Search",
+                              "single-line": "",
+                              "hide-details": ""
+                            },
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-data-table", {
+                        attrs: {
+                          headers: _vm.headers,
+                          items: _vm.items,
+                          search: _vm.search,
+                          "items-per-page": _vm.perPage,
+                          "server-items-length": _vm.meta.total,
+                          "hide-default-footer": ""
+                        },
+                        on: {
+                          "update:sort-by": function($event) {
+                            return _vm.handleEvent("orderBy", $event)
+                          },
+                          "update:sort-desc": function($event) {
+                            return _vm.handleEvent("orderDesc", $event)
+                          }
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "top",
+                            fn: function() {
+                              return [
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogNew,
+                                      callback: function($$v) {
+                                        _vm.dialogNew = $$v
+                                      },
+                                      expression: "dialogNew"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-create",
+                                      {
+                                        attrs: { title: _vm.item.name },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmCreate
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.name,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "name", $$v)
+                                            },
+                                            expression: "item.name"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogView,
+                                      callback: function($$v) {
+                                        _vm.dialogView = $$v
+                                      },
+                                      expression: "dialogView"
+                                    }
+                                  },
+                                  [
+                                    _c("card-view", {
+                                      attrs: {
+                                        item: _vm.item,
+                                        title: _vm.item.name
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogEdit,
+                                      callback: function($$v) {
+                                        _vm.dialogEdit = $$v
+                                      },
+                                      expression: "dialogEdit"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-edit",
+                                      {
+                                        attrs: { title: _vm.item.name },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmUpdate
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.name,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "name", $$v)
+                                            },
+                                            expression: "item.name"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogDelete,
+                                      callback: function($$v) {
+                                        _vm.dialogDelete = $$v
+                                      },
+                                      expression: "dialogDelete"
+                                    }
+                                  },
+                                  [
+                                    _c("card-confirm", {
+                                      attrs: {
+                                        title:
+                                          "Are you sure you want to delete this " +
+                                          _vm.item.name +
+                                          "?",
+                                        text: ""
+                                      },
+                                      on: {
+                                        no: _vm.closeDialogs,
+                                        yes: _vm.confirmDelete
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "item.actions",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return [
+                                !item.is_deleted
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.viewItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-eye")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.editItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-pencil")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-delete")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                item.is_deleted
+                                  ? _c(
+                                      "v-btn",
+                                      {
+                                        attrs: { icon: "" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.restoreItem(item.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("v-icon", { attrs: { small: "" } }, [
+                                          _vm._v("mdi-refresh")
+                                        ])
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e()
+                              ]
+                            }
+                          }
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "3", sm: "3" } },
+                            [
+                              _c("v-select", {
+                                attrs: {
+                                  items: [5, 10, 20, 25, 50, 100],
+                                  label: "Row per Page"
+                                },
+                                model: {
+                                  value: _vm.perPage,
+                                  callback: function($$v) {
+                                    _vm.perPage = $$v
+                                  },
+                                  expression: "perPage"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "text-center pt-2" },
+                        [
+                          _c("v-pagination", {
+                            attrs: { length: _vm.meta.last_page },
+                            on: { input: _vm.pageChange },
+                            model: {
+                              value: _vm.meta.current_page,
+                              callback: function($$v) {
+                                _vm.$set(_vm.meta, "current_page", $$v)
+                              },
+                              expression: "meta.current_page"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/users/Users.vue?vue&type=template&id=14153400&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/admin/settings/users/Users.vue?vue&type=template&id=14153400&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-container",
+        [
+          _c(
+            "v-row",
+            [
+              _c(
+                "v-col",
+                { attrs: { xs: "12", md: "12", sm: "12" } },
+                [
+                  _c(
+                    "v-card",
+                    [
+                      _c(
+                        "v-toolbar",
+                        [
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    to: { name: "Users" },
+                                    depressed: "",
+                                    exact: ""
+                                  }
+                                },
+                                [_vm._v("Users")]
+                              ),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.roles-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Roles settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Roles")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.hasPermission("crm.permissions-list")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        to: { name: "Permissions settings" },
+                                        depressed: "",
+                                        exact: ""
+                                      }
+                                    },
+                                    [_vm._v("Permissions")]
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("v-spacer"),
+                          _vm._v(" "),
+                          _c(
+                            "v-btn-toggle",
+                            { attrs: { color: "primary", group: "" } },
+                            [
+                              _vm.hasRole("admin")
+                                ? _c(
+                                    "v-btn",
+                                    { on: { click: _vm.handleActiveStatus } },
+                                    [_vm._v("Deleted users")]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _vm.hasRole("admin")
+                                ? _c(
+                                    "v-btn",
+                                    {
+                                      attrs: { depressed: "" },
+                                      on: { click: _vm.newItem }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { left: "" } }, [
+                                        _vm._v("mdi-plus")
+                                      ]),
+                                      _vm._v(
+                                        "\n                " +
+                                          _vm._s(_vm.newItemTitle) +
+                                          "\n              "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                : _vm._e()
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-card-title",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              "append-icon": "mdi-magnify",
+                              label: "Search",
+                              "single-line": "",
+                              "hide-details": ""
+                            },
+                            model: {
+                              value: _vm.search,
+                              callback: function($$v) {
+                                _vm.search = $$v
+                              },
+                              expression: "search"
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-data-table", {
+                        attrs: {
+                          headers: _vm.headers,
+                          items: _vm.items,
+                          search: _vm.search,
+                          "items-per-page": _vm.perPage,
+                          "server-items-length": _vm.meta.total,
+                          "hide-default-footer": ""
+                        },
+                        on: {
+                          "update:sort-by": function($event) {
+                            return _vm.handleEvent("orderBy", $event)
+                          },
+                          "update:sort-desc": function($event) {
+                            return _vm.handleEvent("orderDesc", $event)
+                          }
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "top",
+                            fn: function() {
+                              return [
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogNew,
+                                      callback: function($$v) {
+                                        _vm.dialogNew = $$v
+                                      },
+                                      expression: "dialogNew"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-create",
+                                      {
+                                        attrs: { title: _vm.item.username },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmCreate
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.username,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "username",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.username"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Email",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.email,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "email", $$v)
+                                            },
+                                            expression: "item.email"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Role",
+                                            items: _vm.itemRoles,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.role,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "role", $$v)
+                                            },
+                                            expression: "item.role"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Password",
+                                            type: "password"
+                                          },
+                                          model: {
+                                            value: _vm.item.password,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "password",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.password"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogView,
+                                      callback: function($$v) {
+                                        _vm.dialogView = $$v
+                                      },
+                                      expression: "dialogView"
+                                    }
+                                  },
+                                  [
+                                    _c("card-view", {
+                                      attrs: {
+                                        item: _vm.item,
+                                        title: _vm.item.username
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogEdit,
+                                      callback: function($$v) {
+                                        _vm.dialogEdit = $$v
+                                      },
+                                      expression: "dialogEdit"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "card-edit",
+                                      {
+                                        attrs: { title: _vm.item.username },
+                                        on: {
+                                          close: _vm.closeDialogs,
+                                          confirm: _vm.confirmEdit
+                                        }
+                                      },
+                                      [
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Name",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.username,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "username",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.username"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Email",
+                                            type: "text",
+                                            required: ""
+                                          },
+                                          model: {
+                                            value: _vm.item.email,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "email", $$v)
+                                            },
+                                            expression: "item.email"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-select", {
+                                          attrs: {
+                                            label: "Role",
+                                            items: _vm.itemRoles,
+                                            "item-value": "id",
+                                            "item-text": "name"
+                                          },
+                                          model: {
+                                            value: _vm.item.role,
+                                            callback: function($$v) {
+                                              _vm.$set(_vm.item, "role", $$v)
+                                            },
+                                            expression: "item.role"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-text-field", {
+                                          attrs: {
+                                            label: "Password",
+                                            type: "password"
+                                          },
+                                          model: {
+                                            value: _vm.item.password,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.item,
+                                                "password",
+                                                $$v
+                                              )
+                                            },
+                                            expression: "item.password"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogDelete,
+                                      callback: function($$v) {
+                                        _vm.dialogDelete = $$v
+                                      },
+                                      expression: "dialogDelete"
+                                    }
+                                  },
+                                  [
+                                    _c("card-confirm", {
+                                      attrs: {
+                                        title:
+                                          "Are you sure you want to delete " +
+                                          _vm.item.username +
+                                          "?",
+                                        text: ""
+                                      },
+                                      on: {
+                                        no: _vm.closeDialogs,
+                                        yes: _vm.confirmDelete
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-dialog",
+                                  {
+                                    attrs: { "max-width": "35%" },
+                                    model: {
+                                      value: _vm.dialogRestore,
+                                      callback: function($$v) {
+                                        _vm.dialogRestore = $$v
+                                      },
+                                      expression: "dialogRestore"
+                                    }
+                                  },
+                                  [
+                                    _c("card-confirm", {
+                                      attrs: {
+                                        title:
+                                          "Are you sure you want to restore " +
+                                          _vm.item.username +
+                                          "?",
+                                        text: ""
+                                      },
+                                      on: {
+                                        no: _vm.closeDialogs,
+                                        yes: _vm.confirmRestore
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ]
+                            },
+                            proxy: true
+                          },
+                          {
+                            key: "item.actions",
+                            fn: function(ref) {
+                              var item = ref.item
+                              return [
+                                !item.is_deleted
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.viewItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-eye")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.editItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-pencil")]
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            attrs: { icon: "" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteItem(item.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              { attrs: { small: "" } },
+                                              [_vm._v("mdi-delete")]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                item.is_deleted
+                                  ? _c(
+                                      "v-btn",
+                                      {
+                                        attrs: { icon: "" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.restoreDialog(item.id)
                                           }
                                         }
                                       },
@@ -28156,7 +31386,34 @@ var render = function() {
                                         )
                                       ]),
                                       _vm._v(" "),
-                                      typeof prop === "object" && prop !== null
+                                      Array.isArray(prop)
+                                        ? _c(
+                                            "td",
+                                            _vm._l(prop, function(item, k) {
+                                              return _c(
+                                                "v-chip",
+                                                {
+                                                  key: k,
+                                                  staticClass: "ma-2",
+                                                  attrs: {
+                                                    color: "green",
+                                                    "text-color": "white",
+                                                    small: ""
+                                                  }
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n                    " +
+                                                      _vm._s(item.name) +
+                                                      "\n                  "
+                                                  )
+                                                ]
+                                              )
+                                            }),
+                                            1
+                                          )
+                                        : typeof prop === "object" &&
+                                          prop !== null
                                         ? _c(
                                             "td",
                                             [
