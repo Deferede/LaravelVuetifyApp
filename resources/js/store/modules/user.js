@@ -42,7 +42,7 @@ const actions = {
             let resp = await axios.post('/api/auth/login', user)
             console.log(resp)
             let token = resp.data.data.token
-            cookie.set(PASSPORT_NAME, token, {expires: 365, domain: PASSPORT_DOMAIN})
+            cookie.set(PASSPORT_NAME, token, {expires: 365})
             axios.defaults.headers.common['Authorization'] = 'bearer ' + token
 
             commit('shared/SET_LOADING', false, {root: true})

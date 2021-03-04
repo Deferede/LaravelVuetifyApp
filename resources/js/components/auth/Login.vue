@@ -80,7 +80,7 @@
 
           this.$store.dispatch('user/loginUser', user)
           .then(() => {
-            window.location.replace(redirectUrl)
+            // window.location.replace(redirectUrl)
           })
           .catch((err) => {})
 
